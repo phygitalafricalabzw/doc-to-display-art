@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getProduct, products } from "@/data/products";
+import { getProduct, products, type Product } from "@/data/products";
 import heroBowl from "@/assets/hero-bowl.jpg";
 
 export const Route = createFileRoute("/products/$slug")({
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/products/$slug")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
+  const { product } = Route.useLoaderData() as { product: Product };
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
   return (
@@ -94,7 +94,7 @@ function ProductPage() {
           </h1>
           <p className="mt-6 font-display italic text-2xl text-accent">{product.tagline}</p>
           <div className="mt-8 space-y-5 text-foreground/80 leading-relaxed text-lg">
-            {product.description.map((para, i) => <p key={i}>{para}</p>)}
+            {product.description.map((para: string, i: number) => <p key={i}>{para}</p>)}
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -113,7 +113,7 @@ function ProductPage() {
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Why it matters</div>
             <ul className="space-y-4">
-              {product.highlights.map((h) => (
+              {product.highlights.map((h: string) => (
                 <li key={h} className="flex gap-3 items-start">
                   <span className="text-accent mt-1.5">✦</span>
                   <span className="font-display text-xl text-primary leading-snug">{h}</span>
@@ -124,7 +124,7 @@ function ProductPage() {
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Ways to enjoy</div>
             <ul className="space-y-4">
-              {product.uses.map((u) => (
+              {product.uses.map((u: string) => (
                 <li key={u} className="border-t border-border/60 pt-4 text-foreground/80">{u}</li>
               ))}
             </ul>
@@ -132,7 +132,7 @@ function ProductPage() {
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Pack & supply</div>
             <dl className="space-y-5">
-              {product.pack.map((p) => (
+              {product.pack.map((p: { label: string; value: string }) => (
                 <div key={p.label} className="border-t border-border/60 pt-4">
                   <dt className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-1">{p.label}</dt>
                   <dd className="font-display text-xl text-primary">{p.value}</dd>
