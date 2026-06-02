@@ -1,13 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import heroBowl from "@/assets/hero-bowl.jpg";
 import field from "@/assets/field.jpg";
-import groats from "@/assets/groats.jpg";
-import porridge from "@/assets/porridge.jpg";
-import meal from "@/assets/meal.jpg";
-import flour from "@/assets/flour.jpg";
-import tea from "@/assets/tea.jpg";
-import honey from "@/assets/honey.jpg";
-import kasha from "@/assets/kasha.jpg";
+import { products } from "@/data/products";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,16 +16,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
-const products = [
-  { name: "Buckwheat Groats", tag: "Whole grain", img: groats, copy: "Clean, hulled whole grains — mild in flavour and rich in complete plant protein. For porridge, soups, salads and snack mixes." },
-  { name: "Instant Porridge", tag: "Ready in minutes", img: porridge, copy: "A fast-cooking, nutrient-dense breakfast cereal. Gluten-free, high in fibre, with a smooth nutty finish." },
-  { name: "Buckwheat Meal", tag: "Coarse ground", img: meal, copy: "A wholesome, coarse-ground meal with earthy taste — a nourishing alternative to maize or sorghum." },
-  { name: "Buckwheat Flour", tag: "Stone-milled", img: flour, copy: "Finely milled from premium Zimbabwean buckwheat. Naturally gluten-free for pancakes, breads and rotis." },
-  { name: "Buckwheat Tea", tag: "Loose leaf", img: tea, copy: "A toasted, caffeine-free infusion with a soft amber colour and a clean, malty aroma." },
-  { name: "Buckwheat Honey", tag: "Raw apiary", img: honey, copy: "Dark, mineral-rich honey gathered from hives set among our buckwheat fields." },
-  { name: "Buckwheat Kasha", tag: "Unroasted", img: kasha, copy: "Gently hulled, unroasted grains preserving full nutritional value and a mild, natural flavour." },
-];
 
 const values = [
   { k: "01", t: "Sustainability", d: "Environmentally friendly cultivation and production practices, from field to finished pack." },
@@ -234,9 +218,11 @@ function Products() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((p, i) => (
-            <article
-              key={p.name}
-              className={`group bg-background border border-border/60 overflow-hidden ${i === 0 ? "lg:col-span-2" : ""}`}
+            <Link
+              key={p.slug}
+              to="/products/$slug"
+              params={{ slug: p.slug }}
+              className={`group bg-background border border-border/60 overflow-hidden block ${i === 0 ? "lg:col-span-2" : ""}`}
             >
               <div className={`relative overflow-hidden ${i === 0 ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
                 <img src={p.img} alt={p.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" loading="lazy" width={1200} height={900} />
@@ -245,10 +231,11 @@ function Products() {
                 </span>
               </div>
               <div className="p-7">
-                <h3 className="font-display text-2xl text-primary mb-2">{p.name}</h3>
+                <h3 className="font-display text-2xl text-primary mb-2 group-hover:text-accent transition">{p.name}</h3>
                 <p className="text-sm text-foreground/70 leading-relaxed">{p.copy}</p>
+                <span className="mt-4 inline-block text-xs uppercase tracking-[0.25em] text-accent">Discover →</span>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </div>
