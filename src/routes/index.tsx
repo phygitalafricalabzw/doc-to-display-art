@@ -69,16 +69,13 @@ function Hero() {
     <section id="top" className="relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 pt-16 md:pt-24 pb-20 grid md:grid-cols-12 gap-10 items-end">
         <div className="md:col-span-7">
-          <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8">
-            Est. 2024 · Arcturus, Zimbabwe
-          </div>
-          <h1 className="font-display font-light text-[clamp(3rem,8vw,7.5rem)] leading-[0.95] tracking-tight text-primary">
-            The smart<br/>
-            <em className="italic font-normal text-accent">supergrain</em><br/>
-            from Zimbabwe.
+          <div className="h-eyebrow text-muted-foreground mb-8">Est. 2024 · Arcturus, Zimbabwe</div>
+          <h1 className="h-display text-primary">
+            Buckwheat,<br/>
+            <span className="italic font-light text-accent normal-case">reimagined.</span>
           </h1>
-          <p className="mt-8 max-w-xl text-lg text-foreground/75 leading-relaxed">
-            Stellar Foods cultivates, mills and markets nutritious buckwheat products — gluten-free, antioxidant-rich, and grown in partnership with local farmers across the Zimbabwean highlands.
+          <p className="h-sub mt-8 max-w-2xl text-foreground/80">
+            Seven products. One ancient grain.<br className="hidden md:block"/> Grown high in the Zimbabwean highlands.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <a href="#products" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm hover:bg-primary/90 transition">
@@ -104,10 +101,10 @@ function Hero() {
 }
 
 function Marquee() {
-  const items = ["Gluten-Free", "High Protein", "Antioxidant Rich", "Locally Grown", "No Preservatives", "Sustainably Sourced"];
+  const items = ["NATURALLY GLUTEN-FREE", "SINGLE-ORIGIN", "ZIMBABWE-GROWN", "HIGH PROTEIN", "ANTIOXIDANT RICH", "FIELD TO PACK"];
   return (
     <div className="border-y border-border/60 bg-cream/40 py-5 overflow-hidden">
-      <div className="flex gap-12 animate-[scroll_30s_linear_infinite] whitespace-nowrap font-display text-xl text-primary/80 italic">
+      <div className="flex gap-12 animate-[scroll_30s_linear_infinite] whitespace-nowrap font-display text-2xl text-primary font-bold tracking-tight">
         {[...items, ...items, ...items].map((t, i) => (
           <span key={i} className="flex items-center gap-12">
             {t}
@@ -124,10 +121,12 @@ function About() {
   return (
     <section id="about" className="mx-auto max-w-7xl px-6 py-28 grid md:grid-cols-12 gap-12">
       <div className="md:col-span-5">
-        <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">About</div>
-        <h2 className="font-display text-5xl md:text-6xl leading-[1.05] text-primary">
-          Forward-thinking food, rooted in Zimbabwean soil.
+        <div className="h-eyebrow text-muted-foreground mb-6">About</div>
+        <h2 className="h-display text-primary">
+          Rooted in<br/>
+          <span className="italic font-light text-accent normal-case">the highlands.</span>
         </h2>
+        <p className="h-sub mt-6 text-foreground/70 max-w-md">A family farm turned national pantry staple.</p>
       </div>
       <div className="md:col-span-6 md:col-start-7 space-y-6 text-lg leading-relaxed text-foreground/80">
         <p>
@@ -162,7 +161,14 @@ function MissionVision() {
         <img src={field} alt="" className="h-full w-full object-cover" loading="lazy" width={1600} height={1000} />
         <div className="absolute inset-0 bg-primary/85" />
       </div>
-      <div className="relative mx-auto max-w-7xl px-6 py-28 grid md:grid-cols-2 gap-16 text-primary-foreground">
+      <div className="relative mx-auto max-w-7xl px-6 py-28 text-primary-foreground">
+        <div className="mb-16 max-w-4xl">
+          <div className="h-eyebrow opacity-70 mb-6">What drives us</div>
+          <h2 className="h-display">
+            We grow <span className="italic font-light text-accent normal-case">what nourishes.</span>
+          </h2>
+        </div>
+        <div className="grid md:grid-cols-2 gap-16">
         <div>
           <div className="text-xs uppercase tracking-[0.3em] opacity-70 mb-6">Mission</div>
           <p className="font-display text-3xl md:text-4xl leading-snug italic">
@@ -175,6 +181,7 @@ function MissionVision() {
             “To be the leading provider of nutritious and sustainable buckwheat products in Africa.”
           </p>
         </div>
+        </div>
       </div>
     </section>
   );
@@ -184,8 +191,12 @@ function Values() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-28">
       <div className="flex items-end justify-between mb-16">
-        <h2 className="font-display text-5xl md:text-6xl text-primary max-w-2xl">Our core values</h2>
-        <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground hidden md:block">What we stand on</div>
+        <div>
+          <div className="h-eyebrow text-muted-foreground mb-6">What we stand on</div>
+          <h2 className="h-display text-primary">
+            Core<br/><span className="italic font-light text-accent normal-case">values.</span>
+          </h2>
+        </div>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border/60 border border-border/60">
         {values.map((v) => (
@@ -206,13 +217,13 @@ function Products() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid md:grid-cols-12 gap-8 mb-16 items-end">
           <div className="md:col-span-7">
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">The range</div>
-            <h2 className="font-display text-5xl md:text-6xl text-primary leading-[1.05]">
-              Seven ways to discover <em className="italic text-accent">buckwheat.</em>
+            <div className="h-eyebrow text-muted-foreground mb-6">Seven · Gluten-free · Single-origin</div>
+            <h2 className="h-display text-primary">
+              The<br/><span className="italic font-light text-accent normal-case">range.</span>
             </h2>
           </div>
-          <p className="md:col-span-4 md:col-start-9 text-foreground/70 leading-relaxed">
-            Antioxidant-rich foods play a major role in preventing non-communicable diseases. Buckwheat consistently shows superior antioxidant activity — and tastes wonderful too.
+          <p className="md:col-span-4 md:col-start-9 h-sub text-foreground/70">
+            From whole groats to dark apiary honey.
           </p>
         </div>
 
@@ -246,8 +257,11 @@ function Products() {
 function Directors() {
   return (
     <section id="directors" className="mx-auto max-w-7xl px-6 py-28">
-      <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Leadership</div>
-      <h2 className="font-display text-5xl md:text-6xl text-primary mb-16 max-w-3xl">Meet our directors.</h2>
+      <div className="h-eyebrow text-muted-foreground mb-6">Leadership</div>
+      <h2 className="h-display text-primary">
+        The <span className="italic font-light text-accent normal-case">people</span><br/>behind it.
+      </h2>
+      <p className="h-sub mt-6 mb-16 text-foreground/70">Two founders. One harvest.</p>
 
       <div className="grid md:grid-cols-2 gap-16">
         <Director
@@ -289,13 +303,12 @@ function Contact() {
     <section id="contact" className="bg-primary text-primary-foreground">
       <div className="mx-auto max-w-7xl px-6 py-28 grid md:grid-cols-12 gap-12">
         <div className="md:col-span-6">
-          <div className="text-xs uppercase tracking-[0.3em] opacity-70 mb-6">Get in touch</div>
-          <h2 className="font-display text-5xl md:text-7xl leading-[0.95]">
-            Let's grow<br/>
-            <em className="italic text-accent">something good.</em>
+          <div className="h-eyebrow opacity-70 mb-6">Get in touch</div>
+          <h2 className="h-display">
+            Let's <span className="italic font-light text-accent normal-case">talk</span><br/>trade.
           </h2>
-          <p className="mt-8 max-w-md opacity-80 leading-relaxed">
-            For wholesale enquiries, farming partnerships, or to bring our buckwheat range to your shelves — we'd love to hear from you.
+          <p className="h-sub mt-8 max-w-md opacity-85">
+            Wholesale, export and private-label enquiries.
           </p>
         </div>
         <div className="md:col-span-5 md:col-start-8 space-y-8 text-lg">
