@@ -66,33 +66,43 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 pt-16 md:pt-24 pb-20 grid md:grid-cols-12 gap-10 items-end">
-        <div className="md:col-span-7">
-          <div className="h-eyebrow text-muted-foreground mb-8">Est. 2024 · Arcturus, Zimbabwe</div>
-          <h1 className="h-display text-primary">
-            Buckwheat,<br/>
-            <span className="italic font-light text-accent normal-case">reimagined.</span>
+    <section id="top" className="relative bg-primary text-primary-foreground">
+      <div className="grid lg:grid-cols-2 min-h-[calc(100vh-77px)]">
+        <div className="flex flex-col justify-center px-6 sm:px-10 lg:px-20 py-20 lg:py-28 space-y-8">
+          <span className="text-accent font-semibold tracking-[0.3em] uppercase text-xs">Zimbabwean Grown · Est. 2024</span>
+          <h1 className="font-display font-black text-primary-foreground leading-[0.88] tracking-tighter text-[clamp(4rem,12vw,9rem)]">
+            Purely<br/>
+            <span className="italic font-light text-accent">Stellar.</span>
           </h1>
-          <p className="h-sub mt-8 max-w-2xl text-foreground/80">
-            Seven products. One ancient grain.<br className="hidden md:block"/> Grown high in the Zimbabwean highlands.
+          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-md leading-relaxed">
+            Premium, single-origin buckwheat grown in the highlands of Zimbabwe. Nutrient-dense, naturally gluten-free, and ethically sourced for the modern kitchen.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#products" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm hover:bg-primary/90 transition">
-              Explore the range
+          <div className="flex flex-wrap gap-4 pt-2">
+            <a href="#products" className="group inline-flex items-center gap-3 px-8 py-4 bg-accent text-accent-foreground font-bold rounded-full hover:scale-[1.03] transition-transform text-base shadow-lg shadow-black/20">
+              Shop the range
+              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
             </a>
-            <a href="#about" className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-7 py-3.5 text-sm text-primary hover:bg-primary/5 transition">
+            <a href="#contact" className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary-foreground/30 text-primary-foreground font-bold rounded-full hover:border-primary-foreground hover:bg-primary-foreground/5 transition-colors text-base">
+              Wholesale inquiry
+            </a>
+            <a href="#about" className="inline-flex items-center gap-2 px-2 py-4 text-primary-foreground/70 font-medium hover:text-accent transition-colors text-sm underline underline-offset-4 decoration-accent/60">
               Our story
             </a>
           </div>
-        </div>
-        <div className="md:col-span-5 relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
-            <img src={heroBowl} alt="A wooden bowl filled with raw buckwheat groats on linen" className="h-full w-full object-cover" width={1600} height={1280} />
+          <div className="pt-8 flex flex-wrap gap-x-8 gap-y-3 text-[11px] uppercase tracking-[0.25em] text-primary-foreground/60 border-t border-primary-foreground/15 mt-4">
+            <span className="pt-6">✦ Gluten-free</span>
+            <span className="pt-6">✦ Locally grown</span>
+            <span className="pt-6">✦ Family-run</span>
           </div>
-          <div className="absolute -left-6 -bottom-6 bg-accent text-accent-foreground rounded-full size-32 flex flex-col items-center justify-center text-center shadow-lg">
-            <span className="font-display text-3xl leading-none">100%</span>
-            <span className="text-[10px] uppercase tracking-[0.2em] mt-1">Natural</span>
+        </div>
+        <div className="relative bg-[oklch(0.28_0.06_150)] flex items-center justify-center overflow-hidden min-h-[420px] py-16 lg:py-0">
+          <div className="absolute inset-0 opacity-[0.18] mix-blend-overlay" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/natural-paper.png')" }} />
+          <div className="relative z-10 w-[78%] aspect-square rounded-3xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700 overflow-hidden">
+            <img src={heroBowl} alt="A wooden bowl filled with raw buckwheat groats on linen" className="h-full w-full object-cover" width={1600} height={1600} />
+          </div>
+          <div className="absolute bottom-8 right-8 z-20 bg-accent text-accent-foreground rounded-full size-28 sm:size-32 flex flex-col items-center justify-center text-center shadow-xl">
+            <span className="font-display text-3xl leading-none font-black">100%</span>
+            <span className="text-[10px] uppercase tracking-[0.2em] mt-1 font-bold">Natural</span>
           </div>
         </div>
       </div>
