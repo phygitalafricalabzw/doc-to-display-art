@@ -1,38 +1,37 @@
-## Bold typographic overhaul
+## Goal
+Replace the current flat hero and passive product detail pages with the selected "High-contrast split layout" direction: oversized Fraunces headlines, forest-green/honey contrast, and dual-path CTAs that always give the visitor a clear next step.
 
-Push the site into editorial/fashion-magazine territory — gigantic display type, confident sub-headlines, and tighter rhythm. No structural changes; copy and typography only.
+## Hero (`src/routes/index.tsx`)
+Rebuild the hero section only — leave About / Mission / Range / Leadership / Contact intact, but update internal anchors so the new CTAs work.
 
-### Typography system (src/styles.css)
-- Keep Fraunces, but lean harder: weights 300 + 700, heavy negative tracking (-0.04em) on display sizes, optical sizing tuned for large.
-- Add an italic Fraunces cut for sub-headlines (true italic, not synthesized).
-- New utility scale used across sections:
-  - `.h-display` — clamp(4rem, 11vw, 12rem), weight 700, leading 0.85, tracking -0.05em
-  - `.h-eyebrow` — uppercase, 0.7rem, tracking 0.35em, weight 500
-  - `.h-sub` — Fraunces italic 300, clamp(1.5rem, 2.6vw, 2.5rem), leading 1.1
-- Mixed-weight headlines: pair bold roman with italic light in the same line (e.g. "Grown **bold** & milled *gentle*").
+- Full-viewport split: left forest-green panel (`--forest`) with content, right deeper-green panel framing the existing hero product image (rounded, subtle rotate, hover settles to 0°, paper-texture overlay).
+- Left content stack: honey eyebrow "Zimbabwean Grown", massive Fraunces 900 headline "Purely / Stellar.", supporting paragraph, then **two prominent rounded-full CTAs**:
+  - Primary (honey on forest): "Shop the range" → `#range`
+  - Secondary (ghost): "Our story" → `#about`
+- Below CTAs add a thin proof strip (Gluten-free · Locally grown · Family-run) to anchor trust.
+- Keep marquee directly after for momentum.
 
-### Headline rewrites (src/routes/index.tsx)
-Replace current calm phrasing with punchy, oversized two-line headlines, each with an italic sub-headline beneath:
+## Product detail (`src/routes/products.$slug.tsx`)
+Replace the hero/intro block with the split product layout from the selected direction; keep existing "Why it matters", "Ways to enjoy", "Pack & supply", and "More from the range" sections (restyled lightly for consistency).
 
-- **Hero**: "BUCKWHEAT, / *reimagined.*" — sub: "Seven products. One ancient grain. Grown in the Zimbabwean highlands."
-- **About**: "ROOTED IN / *the highlands.*" — sub: "A family farm turned national pantry staple."
-- **Mission / Vision**: "WE GROW / *what nourishes.*" — sub above the two cards.
-- **Products**: "THE / RANGE." — massive stacked, with eyebrow "Seven · Gluten-free · Single-origin" and sub "From whole groats to dark apiary honey."
-- **Directors**: "THE / *people* / BEHIND IT." — sub: "Two founders, one harvest."
-- **Contact**: "LET'S / *talk* / TRADE." — sub: "Wholesale, export and private-label enquiries."
-- Marquee: shorter, all-caps repeating phrases ("NATURALLY GLUTEN-FREE ✦ SINGLE-ORIGIN ✦ ZIMBABWE-GROWN ✦").
+- Left column (5/12): large rounded forest-bg image card holding the product photo with soft-light blend; thumbnail strip below (reuses the same image or related-product images — no fake placeholders).
+- Right column (7/12):
+  - Fraunces 900 product name + honey tagline line (uses existing `tagline` field; no fabricated price).
+  - Lead description paragraph.
+  - **Dual-path CTA cards** (the clear next step):
+    - "Individual packs" → links to `#contact` ("Order from a stockist")
+    - "Wholesale & bulk" → links to `mailto:` wholesale inquiry with subject prefilled from product name
+  - Secondary link row: "Recipe inspiration" (scrolls to existing Ways-to-enjoy section) · "Talk to us" (→ `#contact`).
+- Add a compact sticky bottom action bar on mobile (Wholesale / Contact) so the next step is always one tap away.
 
-### Product detail pages (src/routes/products.$slug.tsx)
-- Product name rendered at `.h-display` scale, stacked across two lines where possible.
-- Tagline upgraded to large italic Fraunces sub-headline directly under it.
-- Section eyebrows ("Why it matters", "Ways to enjoy", "Pack & supply") rendered with new `.h-eyebrow` and paired with a bold mini-headline ("REAL / *reasons.*", "EVERYDAY / *uses.*", "PACK / *& supply.*").
+## Design tokens (`src/styles.css`)
+- Add `--honey: #D9A34A` (or align existing honey to this hex) and ensure `--forest` matches `#1B3022` and `--cream` matches `#F9F5F1` to mirror the chosen prototype exactly.
+- Add a small `.btn-honey` / `.btn-ghost-cream` utility pair via `@utility` for the rounded-full CTAs so both pages share styles.
 
-### Visual polish
-- Add a thin gold rule under each section eyebrow.
-- Allow headlines to break out of the grid (negative left margin on desktop) for editorial impact.
-- No new images, no new routes, no data changes.
+## Out of scope
+- No new routes, no e-commerce/cart, no real pricing (the prototype's "$12.50" is illustrative — we will not invent prices).
+- No backend, no new data fields beyond what's already in `src/data/products.ts`.
+- Other homepage sections keep current styling.
 
-### Files touched
-- `src/styles.css` — typography utilities + font weights
-- `src/routes/index.tsx` — headline copy + classes for all sections
-- `src/routes/products.$slug.tsx` — product page headline treatment
+## Verification
+After edits, run a Playwright capture of `/` and `/products/buckwheat-groats` at 1280×1800 and confirm: bold split hero, honey CTAs visible above the fold, and the dual-path action cards present on the product page.
