@@ -65,6 +65,7 @@
   --color-gold-bright: var(--gold-bright);
   --color-emerald-deep: var(--emerald-deep);
   --color-forest: var(--forest);
+  --shadow-luxe: 0 30px 60px -25px oklch(0.22 0.07 160 / 0.45);
   --font-display: "DM Serif Display", ui-serif, Georgia, serif;
   --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
 }
