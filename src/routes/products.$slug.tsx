@@ -47,6 +47,7 @@ export const Route = createFileRoute("/products/$slug")({
 function ProductPage() {
   const { product } = Route.useLoaderData() as { product: Product };
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
+  const wholesaleMail = `mailto:stellarfoods25@gmail.com?subject=${encodeURIComponent(`Wholesale enquiry — ${product.name}`)}&body=${encodeURIComponent(`Hello Stellar Foods,\n\nI'd like to request wholesale pricing and availability for ${product.name}.\n\nQuantity required:\nDelivery location:\nContact name:\n\nThanks,`)}`;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -76,37 +77,69 @@ function ProductPage() {
         <span className="text-foreground/70">{product.name}</span>
       </nav>
 
-      <section className="mx-auto max-w-7xl px-6 pt-10 pb-20 grid md:grid-cols-12 gap-12 items-start">
-        <div className="md:col-span-6 relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+      <section className="mx-auto max-w-7xl px-6 pt-10 pb-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="lg:col-span-5 flex flex-col space-y-5">
+          <div className="relative aspect-[4/5] bg-primary rounded-3xl overflow-hidden shadow-xl">
             <img src={product.img} alt={product.name} className="h-full w-full object-cover" width={1600} height={2000} />
+            <span className="absolute top-5 left-5 bg-accent text-accent-foreground px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] rounded-full">
+              {product.tag}
+            </span>
           </div>
-          <div className="absolute -left-4 -bottom-4 bg-accent text-accent-foreground rounded-full size-28 flex flex-col items-center justify-center text-center shadow-lg">
-            <span className="font-display text-xl leading-none">100%</span>
-            <span className="text-[10px] uppercase tracking-[0.2em] mt-1">Natural</span>
+          <div className="grid grid-cols-3 gap-3">
+            {related.slice(0, 3).map((r) => (
+              <Link key={r.slug} to="/products/$slug" params={{ slug: r.slug }} className="aspect-square overflow-hidden rounded-xl bg-cream group">
+                <img src={r.img} alt={r.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" loading="lazy" />
+              </Link>
+            ))}
           </div>
         </div>
 
-        <div className="md:col-span-6">
-          <div className="h-eyebrow text-muted-foreground mb-6">{product.tag}</div>
-          <h1 className="h-display text-primary">{product.name}</h1>
-          <p className="h-sub mt-6 text-accent">{product.tagline}</p>
-          <div className="mt-8 space-y-5 text-foreground/80 leading-relaxed text-lg">
+        <div className="lg:col-span-7 space-y-8">
+          <div>
+            <div className="h-eyebrow text-muted-foreground mb-5">{product.tag}</div>
+            <h1 className="font-display font-black text-primary leading-[0.9] tracking-tighter text-[clamp(2.75rem,6vw,5rem)]">
+              {product.name}
+            </h1>
+            <p className="mt-4 font-display text-2xl md:text-3xl italic font-light text-accent">{product.tagline}</p>
+          </div>
+
+          <div className="space-y-5 text-foreground/80 leading-relaxed text-lg max-w-2xl">
             {product.description.map((para: string, i: number) => <p key={i}>{para}</p>)}
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link to="/" hash="contact" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm hover:bg-primary/90 transition">
-              Wholesale enquiry
-            </Link>
-            <Link to="/" hash="products" className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-7 py-3.5 text-sm text-primary hover:bg-primary/5 transition">
-              ← Back to range
-            </Link>
+          <div className="grid sm:grid-cols-2 gap-5 pt-2">
+            <a href="#contact" className="group p-7 border-2 border-primary rounded-2xl flex flex-col justify-between hover:bg-primary transition-colors">
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.25em] text-accent font-bold mb-2 group-hover:text-accent">Retail</div>
+                <h3 className="font-display font-bold text-primary group-hover:text-primary-foreground text-2xl mb-2 leading-tight">Find a stockist</h3>
+                <p className="text-sm text-foreground/60 group-hover:text-primary-foreground/70">Individual packs available across Zimbabwe.</p>
+              </div>
+              <span className="mt-6 inline-flex items-center justify-between w-full py-3 px-5 bg-primary group-hover:bg-accent text-primary-foreground group-hover:text-accent-foreground font-bold rounded-lg transition-colors text-sm uppercase tracking-widest">
+                Order from stockist <span aria-hidden>→</span>
+              </span>
+            </a>
+
+            <a href={wholesaleMail} className="group p-7 border-2 border-accent bg-accent/10 rounded-2xl flex flex-col justify-between hover:bg-accent/20 transition-colors">
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.25em] text-primary/70 font-bold mb-2">Bulk</div>
+                <h3 className="font-display font-bold text-primary text-2xl mb-2 leading-tight">Wholesale & bulk</h3>
+                <p className="text-sm text-foreground/70">For bakeries, hotels, distributors and export partners.</p>
+              </div>
+              <span className="mt-6 inline-flex items-center justify-between w-full py-3 px-5 bg-accent text-accent-foreground font-bold rounded-lg hover:brightness-105 transition-all text-sm uppercase tracking-widest">
+                Request pricing <span aria-hidden>→</span>
+              </span>
+            </a>
+          </div>
+
+          <div className="pt-4 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-bold uppercase tracking-[0.25em] text-foreground/50">
+            <a href="#ways-to-enjoy" className="hover:text-accent transition-colors underline decoration-2 underline-offset-4 decoration-accent/40">Recipe inspiration</a>
+            <Link to="/" hash="contact" className="hover:text-accent transition-colors underline decoration-2 underline-offset-4 decoration-accent/40">Talk to us</Link>
+            <Link to="/" hash="products" className="hover:text-accent transition-colors">← Back to range</Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-cream/50 border-y border-border/60 py-20">
+      <section id="ways-to-enjoy" className="bg-cream/50 border-y border-border/60 py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-3 gap-12">
           <div>
             <div className="h-eyebrow text-muted-foreground mb-4">Why it matters</div>
@@ -182,6 +215,16 @@ function ProductPage() {
         </div>
       </footer>
       <img src={heroBowl} alt="" className="hidden" aria-hidden />
+
+      {/* Mobile sticky action bar */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-primary border-t border-primary-foreground/15 shadow-2xl px-4 py-3 flex gap-3">
+        <a href={wholesaleMail} className="flex-1 inline-flex items-center justify-center py-3 px-4 bg-accent text-accent-foreground font-bold rounded-full text-sm uppercase tracking-wider">
+          Wholesale
+        </a>
+        <Link to="/" hash="contact" className="flex-1 inline-flex items-center justify-center py-3 px-4 border-2 border-primary-foreground/30 text-primary-foreground font-bold rounded-full text-sm uppercase tracking-wider">
+          Contact
+        </Link>
+      </div>
     </div>
   );
 }
