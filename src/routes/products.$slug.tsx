@@ -88,11 +88,9 @@ function ProductPage() {
         </div>
 
         <div className="md:col-span-6">
-          <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">{product.tag}</div>
-          <h1 className="font-display font-light text-[clamp(2.5rem,5vw,5rem)] leading-[1] tracking-tight text-primary">
-            {product.name}
-          </h1>
-          <p className="mt-6 font-display italic text-2xl text-accent">{product.tagline}</p>
+          <div className="h-eyebrow text-muted-foreground mb-6">{product.tag}</div>
+          <h1 className="h-display text-primary">{product.name}</h1>
+          <p className="h-sub mt-6 text-accent">{product.tagline}</p>
           <div className="mt-8 space-y-5 text-foreground/80 leading-relaxed text-lg">
             {product.description.map((para: string, i: number) => <p key={i}>{para}</p>)}
           </div>
@@ -111,7 +109,8 @@ function ProductPage() {
       <section className="bg-cream/50 border-y border-border/60 py-20">
         <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-3 gap-12">
           <div>
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Why it matters</div>
+            <div className="h-eyebrow text-muted-foreground mb-4">Why it matters</div>
+            <h3 className="font-display text-3xl text-primary mb-6 leading-none">Real <em className="italic font-light text-accent">reasons.</em></h3>
             <ul className="space-y-4">
               {product.highlights.map((h: string) => (
                 <li key={h} className="flex gap-3 items-start">
@@ -122,7 +121,8 @@ function ProductPage() {
             </ul>
           </div>
           <div>
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Ways to enjoy</div>
+            <div className="h-eyebrow text-muted-foreground mb-4">Ways to enjoy</div>
+            <h3 className="font-display text-3xl text-primary mb-6 leading-none">Everyday <em className="italic font-light text-accent">uses.</em></h3>
             <ul className="space-y-4">
               {product.uses.map((u: string) => (
                 <li key={u} className="border-t border-border/60 pt-4 text-foreground/80">{u}</li>
@@ -130,7 +130,8 @@ function ProductPage() {
             </ul>
           </div>
           <div>
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Pack & supply</div>
+            <div className="h-eyebrow text-muted-foreground mb-4">Pack & supply</div>
+            <h3 className="font-display text-3xl text-primary mb-6 leading-none">Pack <em className="italic font-light text-accent">&amp; supply.</em></h3>
             <dl className="space-y-5">
               {product.pack.map((p: { label: string; value: string }) => (
                 <div key={p.label} className="border-t border-border/60 pt-4">
@@ -145,7 +146,7 @@ function ProductPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-24">
         <div className="flex items-end justify-between mb-12">
-          <h2 className="font-display text-4xl md:text-5xl text-primary">More from the range</h2>
+          <h2 className="font-display text-5xl md:text-7xl text-primary leading-none">More from <em className="italic font-light text-accent">the range.</em></h2>
           <Link to="/" hash="products" className="text-xs uppercase tracking-[0.25em] text-muted-foreground hover:text-primary transition hidden md:inline">View all seven →</Link>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
