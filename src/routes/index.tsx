@@ -95,9 +95,11 @@ function Hero() {
             <span className="pt-6">✦ Family-run</span>
           </div>
         </div>
-        <div className="relative bg-[oklch(0.28_0.06_150)] flex items-center justify-center overflow-hidden min-h-[420px] py-16 lg:py-0">
+        <div className="relative bg-emerald-deep flex items-center justify-center overflow-hidden min-h-[420px] py-16 lg:py-0">
           <div className="absolute inset-0 opacity-[0.18] mix-blend-overlay" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/natural-paper.png')" }} />
-          <div className="relative z-10 w-[78%] aspect-square rounded-3xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700 overflow-hidden">
+          <div className="absolute inset-0 opacity-40" style={{ background: "radial-gradient(circle at 70% 40%, var(--gold) 0%, transparent 55%)" }} />
+          <div className="absolute z-0 size-[62%] rounded-full border-[3px] border-gold/60" />
+          <div className="relative z-10 w-[72%] aspect-square rounded-full shadow-luxe ring-8 ring-gold/30 overflow-hidden rotate-3 hover:rotate-0 transition-transform duration-700">
             <img src={heroBowl} alt="A wooden bowl filled with raw buckwheat groats on linen" className="h-full w-full object-cover" width={1600} height={1600} />
           </div>
           <div className="absolute bottom-8 right-8 z-20 bg-accent text-accent-foreground rounded-full size-28 sm:size-32 flex flex-col items-center justify-center text-center shadow-xl">
