@@ -190,12 +190,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-}
-
-@utility h-eyebrow::before {
-  content: "";
-  width: 2.5rem;
-  height: 1px;
-  background: var(--accent);
-  display: inline-block;
+  &::before {
+    content: "";
+    width: 2.5rem;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
 }
