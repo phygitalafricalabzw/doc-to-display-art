@@ -177,7 +177,7 @@ function ProductPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-24">
+      <section className="mx-auto max-w-7xl px-6 py-32 lg:py-40">
         <div className="flex items-end justify-between mb-12">
           <h2 className="font-display text-5xl md:text-7xl text-primary leading-none">More from <em className="italic font-light text-accent">the range.</em></h2>
           <Link to="/" hash="products" className="text-xs uppercase tracking-[0.25em] text-muted-foreground hover:text-primary transition hidden md:inline">View all seven →</Link>
