@@ -162,21 +162,26 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-weight: 400;
+    letter-spacing: 0.005em;
   }
 
   h1, h2, h3, h4, .font-display {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
   }
 }
 
 @utility h-display {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(3.5rem, 11vw, 11rem);
-  line-height: 0.82;
-  letter-spacing: -0.04em;
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
   font-optical-sizing: auto;
   text-transform: none;
 }
@@ -185,8 +190,8 @@
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
-  line-height: 1.1;
+  font-size: clamp(1.25rem, 2vw, 1.875rem);
+  line-height: 1.25;
   letter-spacing: -0.015em;
 }
 
@@ -194,7 +199,7 @@
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   display: inline-flex;
   align-items: center;
@@ -203,7 +208,13 @@
     content: "";
     width: 2.5rem;
     height: 1px;
-    background: var(--gold);
+    background: var(--accent);
     display: inline-block;
   }
+}
+
+@utility lead {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  font-weight: 400;
 }
