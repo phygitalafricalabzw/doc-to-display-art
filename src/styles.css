@@ -65,6 +65,7 @@
   --color-gold-bright: var(--gold-bright);
   --color-emerald-deep: var(--emerald-deep);
   --color-forest: var(--forest);
+  --color-green-soft: var(--green-soft);
   --shadow-luxe: 0 30px 60px -25px oklch(0.22 0.07 160 / 0.45);
   --font-display: "DM Serif Display", ui-serif, Georgia, serif;
   --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
@@ -72,35 +73,34 @@
 
 :root {
   --radius: 0.25rem;
-  /* Emerald Prestige — rich emerald + luxe gold */
-  --background: oklch(0.96 0.02 88);          /* warm ivory */
-  --foreground: oklch(0.18 0.04 160);         /* near-black emerald */
-  --cream: oklch(0.93 0.035 85);
-  --forest: oklch(0.32 0.09 158);
-  --emerald-deep: oklch(0.22 0.07 160);
-  --honey: oklch(0.78 0.15 80);
-  --gold: oklch(0.78 0.15 80);
-  --gold-bright: oklch(0.86 0.17 88);
-  --card: oklch(0.985 0.012 88);
-  --card-foreground: oklch(0.18 0.04 160);
-  --popover: oklch(0.985 0.012 88);
-  --popover-foreground: oklch(0.18 0.04 160);
-  --primary: oklch(0.22 0.07 160);
-  --primary-foreground: oklch(0.96 0.02 88);
-  --secondary: oklch(0.92 0.03 88);
-  --secondary-foreground: oklch(0.18 0.04 160);
-  --muted: oklch(0.92 0.025 90);
-  --muted-foreground: oklch(0.42 0.04 155);
-  --accent: oklch(0.78 0.15 80);
-  --accent-foreground: oklch(0.18 0.04 160);
+  /* Fresh Field — vivid green, clean white, warm walnut */
+  --background: oklch(0.99 0.005 100);
+  --foreground: oklch(0.22 0.04 160);
+  --cream: oklch(0.975 0.008 120);
+  --forest: oklch(0.52 0.13 156);
+  --emerald-deep: oklch(0.38 0.11 158);
+  --honey: oklch(0.48 0.08 55);
+  --gold: oklch(0.48 0.08 55);
+  --gold-bright: oklch(0.78 0.05 60);
+  --green-soft: oklch(0.92 0.04 150);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.04 160);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.04 160);
+  --primary: oklch(0.52 0.13 156);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.92 0.04 150);
+  --secondary-foreground: oklch(0.22 0.04 160);
+  --muted: oklch(0.95 0.015 140);
+  --muted-foreground: oklch(0.45 0.04 155);
+  --accent: oklch(0.48 0.08 55);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.55 0.22 28);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.84 0.04 90);
-  --input: oklch(0.84 0.04 90);
-  --ring: oklch(0.22 0.07 160);
-  --gradient-gold: linear-gradient(135deg, oklch(0.86 0.17 88), oklch(0.72 0.16 70));
-  --gradient-emerald: linear-gradient(160deg, oklch(0.22 0.07 160), oklch(0.32 0.09 158));
-  --shadow-luxe: 0 30px 60px -25px oklch(0.22 0.07 160 / 0.45);
+  --border: oklch(0.90 0.02 130);
+  --input: oklch(0.90 0.02 130);
+  --ring: oklch(0.52 0.13 156);
+  --shadow-luxe: 0 30px 60px -25px oklch(0.38 0.11 158 / 0.30);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -162,21 +162,26 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-weight: 400;
+    letter-spacing: 0.005em;
   }
 
   h1, h2, h3, h4, .font-display {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
   }
 }
 
 @utility h-display {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(3.5rem, 11vw, 11rem);
-  line-height: 0.82;
-  letter-spacing: -0.04em;
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
   font-optical-sizing: auto;
   text-transform: none;
 }
@@ -185,8 +190,8 @@
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
-  line-height: 1.1;
+  font-size: clamp(1.25rem, 2vw, 1.875rem);
+  line-height: 1.25;
   letter-spacing: -0.015em;
 }
 
@@ -194,7 +199,7 @@
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   display: inline-flex;
   align-items: center;
@@ -203,7 +208,13 @@
     content: "";
     width: 2.5rem;
     height: 1px;
-    background: var(--gold);
+    background: var(--accent);
     display: inline-block;
   }
+}
+
+@utility lead {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  font-weight: 400;
 }

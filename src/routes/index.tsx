@@ -68,7 +68,7 @@ function Hero() {
   return (
     <section id="top" className="relative bg-primary text-primary-foreground">
       <div className="grid lg:grid-cols-2 min-h-[calc(100vh-77px)]">
-        <div className="flex flex-col justify-center px-6 sm:px-10 lg:px-20 py-20 lg:py-28 space-y-8">
+        <div className="flex flex-col justify-center px-6 sm:px-10 lg:px-20 py-20 lg:py-32 lg:py-40 space-y-8">
           <span className="text-accent font-semibold tracking-[0.3em] uppercase text-xs">Zimbabwean Grown · Est. 2024</span>
           <h1 className="font-display font-black text-primary-foreground leading-[0.88] tracking-tighter text-[clamp(4rem,12vw,9rem)]">
             Purely<br/>
@@ -95,11 +95,10 @@ function Hero() {
             <span className="pt-6">✦ Family-run</span>
           </div>
         </div>
-        <div className="relative bg-emerald-deep flex items-center justify-center overflow-hidden min-h-[420px] py-16 lg:py-0">
-          <div className="absolute inset-0 opacity-[0.18] mix-blend-overlay" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/natural-paper.png')" }} />
-          <div className="absolute inset-0 opacity-40" style={{ background: "radial-gradient(circle at 70% 40%, var(--gold) 0%, transparent 55%)" }} />
-          <div className="absolute z-0 size-[62%] rounded-full border-[3px] border-gold/60" />
-          <div className="relative z-10 w-[72%] aspect-square rounded-full shadow-luxe ring-8 ring-gold/30 overflow-hidden rotate-3 hover:rotate-0 transition-transform duration-700">
+        <div className="relative bg-background flex items-center justify-center overflow-hidden min-h-[420px] py-16 lg:py-0">
+          <div className="absolute z-0 size-[68%] rounded-full bg-green-soft" />
+          <div className="absolute z-0 size-[62%] rounded-full border border-accent/30" />
+          <div className="relative z-10 w-[72%] aspect-square rounded-full shadow-luxe overflow-hidden rotate-3 hover:rotate-0 transition-transform duration-700">
             <img src={heroBowl} alt="A wooden bowl filled with raw buckwheat groats on linen" className="h-full w-full object-cover" width={1600} height={1600} />
           </div>
           <div className="absolute bottom-8 right-8 z-20 bg-accent text-accent-foreground rounded-full size-28 sm:size-32 flex flex-col items-center justify-center text-center shadow-xl">
@@ -131,7 +130,7 @@ function Marquee() {
 
 function About() {
   return (
-    <section id="about" className="mx-auto max-w-7xl px-6 py-28 grid md:grid-cols-12 gap-12">
+    <section id="about" className="mx-auto max-w-7xl px-6 py-32 lg:py-40 grid md:grid-cols-12 gap-12">
       <div className="md:col-span-5">
         <div className="h-eyebrow text-muted-foreground mb-6">About</div>
         <h2 className="h-display text-primary">
@@ -173,7 +172,7 @@ function MissionVision() {
         <img src={field} alt="" className="h-full w-full object-cover" loading="lazy" width={1600} height={1000} />
         <div className="absolute inset-0 bg-primary/85" />
       </div>
-      <div className="relative mx-auto max-w-7xl px-6 py-28 text-primary-foreground">
+      <div className="relative mx-auto max-w-7xl px-6 py-32 lg:py-40 text-primary-foreground">
         <div className="mb-16 max-w-4xl">
           <div className="h-eyebrow opacity-70 mb-6">What drives us</div>
           <h2 className="h-display">
@@ -201,7 +200,7 @@ function MissionVision() {
 
 function Values() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-28">
+    <section className="mx-auto max-w-7xl px-6 py-32 lg:py-40">
       <div className="flex items-end justify-between mb-16">
         <div>
           <div className="h-eyebrow text-muted-foreground mb-6">What we stand on</div>
@@ -225,7 +224,7 @@ function Values() {
 
 function Products() {
   return (
-    <section id="products" className="bg-cream/50 py-28 border-y border-border/60">
+    <section id="products" className="bg-cream/50 py-32 lg:py-40 border-y border-border/60">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid md:grid-cols-12 gap-8 mb-16 items-end">
           <div className="md:col-span-7">
@@ -268,7 +267,7 @@ function Products() {
 
 function Directors() {
   return (
-    <section id="directors" className="mx-auto max-w-7xl px-6 py-28">
+    <section id="directors" className="mx-auto max-w-7xl px-6 py-32 lg:py-40">
       <div className="h-eyebrow text-muted-foreground mb-6">Leadership</div>
       <h2 className="h-display text-primary">
         The <span className="italic font-light text-accent normal-case">people</span><br/>behind it.
@@ -313,7 +312,7 @@ function Director({ name, role, bio, initials }: { name: string; role: string; b
 function Contact() {
   return (
     <section id="contact" className="bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-7xl px-6 py-28 grid md:grid-cols-12 gap-12">
+      <div className="mx-auto max-w-7xl px-6 py-32 lg:py-40 grid md:grid-cols-12 gap-12">
         <div className="md:col-span-6">
           <div className="h-eyebrow opacity-70 mb-6">Get in touch</div>
           <h2 className="h-display">
