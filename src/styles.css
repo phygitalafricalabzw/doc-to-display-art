@@ -59,48 +59,46 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --color-cream: var(--cream);
-  --color-honey: var(--honey);
-  --color-gold: var(--gold);
-  --color-gold-bright: var(--gold-bright);
-  --color-emerald-deep: var(--emerald-deep);
-  --color-forest: var(--forest);
-  --color-green-soft: var(--green-soft);
-  --shadow-luxe: 0 30px 60px -25px oklch(0.22 0.07 160 / 0.45);
-  --font-display: "DM Serif Display", ui-serif, Georgia, serif;
-  --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-deep: var(--terracotta-deep);
+  --shadow-luxe: 0 30px 60px -25px oklch(0.16 0.01 60 / 0.25);
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.25rem;
-  /* Fresh Field — vivid green, clean white, warm walnut */
-  --background: oklch(0.99 0.005 100);
-  --foreground: oklch(0.22 0.04 160);
-  --cream: oklch(0.975 0.008 120);
-  --forest: oklch(0.52 0.13 156);
-  --emerald-deep: oklch(0.38 0.11 158);
-  --honey: oklch(0.48 0.08 55);
-  --gold: oklch(0.48 0.08 55);
-  --gold-bright: oklch(0.78 0.05 60);
-  --green-soft: oklch(0.92 0.04 150);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.04 160);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.04 160);
-  --primary: oklch(0.52 0.13 156);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.92 0.04 150);
-  --secondary-foreground: oklch(0.22 0.04 160);
-  --muted: oklch(0.95 0.015 140);
-  --muted-foreground: oklch(0.45 0.04 155);
-  --accent: oklch(0.48 0.08 55);
-  --accent-foreground: oklch(1 0 0);
+  /* Paper & Ink — editorial print magazine */
+  --paper: oklch(0.965 0.008 85);
+  --paper-2: oklch(0.93 0.012 80);
+  --ink: oklch(0.16 0.01 60);
+  --ink-soft: oklch(0.42 0.015 60);
+  --terracotta: oklch(0.58 0.15 40);
+  --terracotta-deep: oklch(0.44 0.14 38);
+  --background: oklch(0.965 0.008 85);
+  --foreground: oklch(0.16 0.01 60);
+  --card: oklch(0.965 0.008 85);
+  --card-foreground: oklch(0.16 0.01 60);
+  --popover: oklch(0.965 0.008 85);
+  --popover-foreground: oklch(0.16 0.01 60);
+  --primary: oklch(0.16 0.01 60);
+  --primary-foreground: oklch(0.965 0.008 85);
+  --secondary: oklch(0.93 0.012 80);
+  --secondary-foreground: oklch(0.16 0.01 60);
+  --muted: oklch(0.93 0.012 80);
+  --muted-foreground: oklch(0.42 0.015 60);
+  --accent: oklch(0.58 0.15 40);
+  --accent-foreground: oklch(0.965 0.008 85);
   --destructive: oklch(0.55 0.22 28);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.90 0.02 130);
-  --input: oklch(0.90 0.02 130);
-  --ring: oklch(0.52 0.13 156);
-  --shadow-luxe: 0 30px 60px -25px oklch(0.38 0.11 158 / 0.30);
+  --border: oklch(0.16 0.01 60 / 0.14);
+  --input: oklch(0.16 0.01 60 / 0.14);
+  --ring: oklch(0.58 0.15 40);
+  --shadow-luxe: 0 30px 60px -25px oklch(0.16 0.01 60 / 0.25);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -160,28 +158,28 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "cv11";
+    font-feature-settings: "ss01";
     -webkit-font-smoothing: antialiased;
     font-size: 1.0625rem;
-    line-height: 1.65;
+    line-height: 1.6;
     font-weight: 400;
-    letter-spacing: 0.005em;
+    letter-spacing: 0;
   }
 
   h1, h2, h3, h4, .font-display {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    letter-spacing: -0.025em;
-    line-height: 1.05;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
   }
 }
 
 @utility h-display {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(3rem, 9vw, 8.5rem);
-  line-height: 0.88;
-  letter-spacing: -0.035em;
+  font-size: clamp(3.5rem, 11vw, 11rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
   font-optical-sizing: auto;
   text-transform: none;
 }
@@ -190,25 +188,26 @@
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.25rem, 2vw, 1.875rem);
-  line-height: 1.25;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  line-height: 1.15;
   letter-spacing: -0.015em;
 }
 
 @utility h-eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
+  color: var(--ink-soft);
   &::before {
     content: "";
     width: 2.5rem;
     height: 1px;
-    background: var(--accent);
+    background: var(--terracotta);
     display: inline-block;
   }
 }
@@ -217,4 +216,48 @@
   font-size: 1.25rem;
   line-height: 1.55;
   font-weight: 400;
+}
+
+@utility dropcap {
+  &::first-letter {
+    font-family: var(--font-display);
+    font-weight: 400;
+    float: left;
+    font-size: 5.5em;
+    line-height: 0.85;
+    padding-right: 0.08em;
+    margin-top: 0.05em;
+    color: var(--terracotta);
+  }
+}
+
+@utility byline {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+@utility folio {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+@utility pull-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  border-left: 2px solid var(--terracotta);
+  padding-left: 1.5rem;
+}
+
+@utility rule {
+  border-top: 1px solid var(--ink);
 }
