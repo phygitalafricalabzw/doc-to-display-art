@@ -319,3 +319,4 @@ function Footer() {
       </div>
     </footer>
   );
+}
