@@ -1,69 +1,79 @@
 ## Direction
 
-Complete reset. Drop the fresh-green look and rebuild as a high-end **editorial print magazine** — a food journal spread. Off-white paper, ink black, one warm terracotta accent. Instrument Serif headlines against tight Work Sans metadata. Layout shifts from generic app sections to a real magazine grid with numbered rules, byline strips, drop caps, pull quotes, index-style product list.
+Rip out the editorial magazine feel. Rebuild as a **Bold Vibrant Poster** — a loud, playful, sticker-shop food brand. Big geometric sans headlines, chunky rounded shapes, marquee scrollers, sticker badges, high-saturation blocks. Feels closer to Oatly / Graza / Liquid Death than a food journal.
 
 ## Palette — `src/styles.css`
 
-Replace all tokens. Strip `--forest`, `--emerald-deep`, `--green-soft`, `--honey`, `--gold`, `--gold-bright`, `--cream` and every reference.
+Strip all `--paper`, `--ink`, `--ink-soft`, `--terracotta*` tokens. Replace with:
 
-- `--paper` `oklch(0.965 0.008 85)` — warm off-white bg
-- `--paper-2` `oklch(0.93 0.012 80)` — alternating band
-- `--ink` `oklch(0.16 0.01 60)` — body/foreground
-- `--ink-soft` `oklch(0.42 0.015 60)` — secondary text
-- `--terracotta` `oklch(0.58 0.15 40)` — accent (links, folios, tags)
-- `--terracotta-deep` `oklch(0.44 0.14 38)` — hover
-- Map: `--background`→paper, `--foreground`→ink, `--primary`→ink, `--primary-foreground`→paper, `--accent`→terracotta, `--muted`→paper-2, `--border` low-alpha ink, `--ring`→terracotta
+- `--sun` `oklch(0.90 0.17 95)` — vivid yellow (#FFE55C)
+- `--leaf` `oklch(0.52 0.16 145)` — punchy green (#2E7D3E)
+- `--tomato` `oklch(0.65 0.22 32)` — hot red-orange (#FF5B3A)
+- `--soot` `oklch(0.16 0.005 60)` — near-black (#111)
+- `--bone` `oklch(0.98 0.005 90)` — off-white
 
-## Typography — `src/styles.css` + `src/routes/__root.tsx`
+Map: `--background`→sun, `--foreground`→soot, `--primary`→soot, `--primary-foreground`→sun, `--accent`→tomato, `--secondary`→leaf, `--muted`→bone, `--border` soot, `--ring`→tomato.
 
-Swap Google Fonts link to Instrument Serif (regular + italic) + Work Sans (300;400;500;600).
+Section rhythm: sun → leaf → sun → tomato → soot. No paper/paper-2 alternation.
 
-- `--font-display`: `"Instrument Serif", ui-serif, Georgia, serif`
-- `--font-sans`: `"Work Sans", ui-sans-serif, system-ui, sans-serif`
-- Body 17px / 1.6 / 400
-- `.h-display`: Instrument Serif regular, `clamp(3.5rem, 11vw, 11rem)`, line-height 0.92, tracking -0.02em
-- `.h-sub`: italic, `clamp(1.5rem, 2.5vw, 2.5rem)`, line-height 1.15
-- `.h-eyebrow`: Work Sans 600, 11px, tracking 0.24em, uppercase, terracotta bar
-- Add `.dropcap` (float, ~5.5em, terracotta), `.byline` (Work Sans 500, 12px, tracking 0.15em, uppercase), `.folio` (tabular-nums), `.pull-quote` (italic 2.5rem with terracotta bar), `.rule` (1px ink hairline)
+## Typography — `src/styles.css` + `__root.tsx`
+
+Swap Google Fonts to **Archivo Black** (display) + **Space Grotesk** (400/500/700) body. Remove Instrument Serif / Work Sans.
+
+- `--font-display`: `"Archivo Black", ui-sans-serif, system-ui, sans-serif`
+- `--font-sans`: `"Space Grotesk", ui-sans-serif, system-ui, sans-serif`
+- Body 17px / 1.5 / 500
+- `.h-display`: Archivo Black, `clamp(4rem, 14vw, 15rem)`, line-height 0.85, tracking -0.04em, uppercase
+- `.h-sub`: Archivo Black, `clamp(1.75rem, 3vw, 3rem)`, uppercase, tracking -0.02em
+- `.h-eyebrow`: Space Grotesk 700, 12px, tracking 0.18em, uppercase — pill (rounded-full, soot bg, sun text, px-3 py-1)
+- Drop: `.dropcap`, `.byline`, `.folio`, `.pull-quote`, `.rule` (magazine-only utilities)
+- Add:
+  - `.sticker` — rounded-full soot border-2, px-4 py-2, rotate variants
+  - `.marquee` — infinite horizontal scroll keyframes
+  - `.chunky-btn` — soot bg, sun text, rounded-full, border-2 soot, hard shadow offset (`4px 4px 0 var(--soot)`), uppercase Archivo Black
+  - `.tape` — tomato bg rotate-2 rounded-sm px-3 py-1 (label tape)
 
 ## Homepage — `src/routes/index.tsx`
 
-Rebuild in this order (new sections, not just repaint):
+Full rebuild. New sections in order:
 
-1. **Masthead bar** — top+bottom rule, folio "Issue N°01 · Highland Journal" left, nav right (About · Range · Stockists · Wholesale). Sticky paper.
-2. **Cover** — full-viewport. Left 7/12: eyebrow, giant stacked h-display "Stellar / Foods." with one italic word, byline strip. Right 5/12: full-bleed hero image with terracotta "N°01" folio overlay. Bottom rule + 3 metadata cells (Est · Origin · Range).
-3. **Contents / Index** — 7 products as 01–07 rows with dotted leaders, each linking to product page. Print-index feel.
-4. **Feature story (About)** — eyebrow "Feature", h-display, drop-cap opener, two-column body, pull-quote breaking the grid.
-5. **The Range** — one hero tile (terracotta bg) + 6 asymmetric grid tiles. Each: image, folio, serif name, one-line caption, hairline top rule.
-6. **Pull-quote band** — paper-2 background, centered oversized italic quote, attribution.
-7. **Directors / Provenance** — two-col: bio with drop cap + numbered credentials list with rules.
-8. **Wholesale / Contact** — split: ink-black slab with paper text and terracotta CTA link left; paper contact index (Email · Phone · Address) as label/value rows right.
-9. **Colophon footer** — ink bg, paper text, 3 columns (Sections · Contact · Colophon), bottom rule with "Set in Instrument Serif & Work Sans".
+1. **Marquee ticker** (top, soot bg, sun text) — "STELLAR FOODS ★ HIGHLAND GROWN ★ SINCE 2020 ★" scrolling.
+2. **Sticky nav** — sun bg, chunky-btn "SHOP" on right, logo left (Archivo Black caps + tomato asterisk).
+3. **Hero** — sun bg full-viewport. Enormous stacked h-display "BUCK / WHEAT / GOODNESS." (last word tomato). Right side: hero product image inside a rotated soot circle badge, orbiting sticker badges ("★ NEW", "100% NATURAL", "MADE IN ZW") with rotation. Two chunky-btn CTAs: soot "SHOP THE RANGE →" and outlined "WHOLESALE".
+4. **Marquee #2** — leaf bg, sun text, product names scrolling.
+5. **The Range** — leaf bg. Grid of 7 product cards. Each card = bone bg, rounded-3xl, border-2 soot, hard shadow offset, image on tomato/sun blob, Archivo Black name, tape-style tag, chunky arrow link. Cards slightly rotated at random (-2°, +1°).
+6. **Why buckwheat** (About) — sun bg. Three big number blocks (01/02/03) with tomato circles, Archivo Black stats + Space Grotesk caption. No drop caps, no columns.
+7. **Big quote band** — tomato bg, giant Archivo Black quote in soot, sticker attribution.
+8. **How to eat it** — bone bg. Bento-ish grid of usage suggestions with emoji-style icon circles in leaf/sun/tomato.
+9. **Wholesale slab** — soot bg, sun text. Giant h-display "LET'S / TALK / BULK.", chunky sun CTA button "EMAIL US →", contact rows.
+10. **Footer** — leaf bg, sun text. Big logo, columns, copyright, one more marquee at bottom.
 
-Replace every button pill with **terracotta text links + arrow →**. Kill `rounded-full`.
+Every button = `chunky-btn` with hard offset shadow. Every card = border-2 + hard shadow. Kill every hairline rule, every dotted leader, every drop cap, every serif italic.
 
 ## Product page — `src/routes/products.$slug.tsx`
 
-- Masthead + breadcrumb rendered as "N°0X / Product Name"
-- Cover: left = eyebrow + folio + h-display + italic sub + byline; right = full-bleed image with terracotta folio overlay
-- Two-column body: left "Why it matters" with drop cap; right = pull-quote + metadata index (Pack · Format · Origin · Shelf) as label/value rows with rules
-- "Ways to enjoy" as numbered 01–0N with serif terracotta numerals
-- "More from the range" as index rows (not cards)
-- Replace dual CTA cards with two terracotta text links: "Find a stockist →", "Wholesale inquiry →"
-- Remove mobile sticky action bar
+- Reuse marquee + sticky sun nav
+- Breadcrumb → tomato sticker pill "← BACK TO SHOP"
+- Cover: sun bg. Left: eyebrow pill, h-display name (last word tomato), Space Grotesk lead paragraph, two chunky-btn CTAs. Right: product image on rotated leaf blob with orbiting sticker badges.
+- "Why it matters" section: bone bg, big cards with numbered soot circles
+- "Pack & supply": leaf bg, sun text, chunky spec cards
+- "Ways to enjoy": tomato bg, sun text, numbered blocks (big Archivo Black numerals in circles)
+- "More from the range": sun bg, 3 rotated cards matching homepage
+- Remove all `.folio`, `.byline`, `.dropcap`, `.pull-quote`, hairline rules
 
 ## Rhythm
 
-- `py-32 lg:py-44` vertical padding
-- paper → paper-2 → paper → ink slab (wholesale) → paper
-- Every section: full-width hairline + eyebrow
-- 12-col grid, 8-col text measure
+- `py-24 lg:py-36` sections
+- Full-bleed color blocks, no max-width interior boxes on section bgs
+- Interior content max-w-[1400px]
+- Random slight rotations on stickers/cards for playful poster feel
+- Hard offset shadows everywhere (no soft blur shadows)
 
 ## Verification
 
-- `rg` for `forest|emerald|green-soft|honey|gold|rounded-full` in both route files — strip leftovers
-- Playwright screenshots at 852-wide + desktop 1440, `/` and one `/products/<slug>`
+- `rg` for `terracotta|paper|ink-soft|dropcap|byline|folio|pull-quote|Instrument Serif|Work Sans` across both route files + styles.css — must be zero
+- Playwright screenshot `/` and one `/products/<slug>` at 852 + 1440 to confirm vibrant poster look
 
 ## Out of scope
 
-No data, routing, image regen, or PDF re-parse. Existing images and copy stay; only palette, type, layout, section composition change.
+Product data, routing, image regeneration, PDF re-parse. Only palette, type, utilities, and layout composition change.
