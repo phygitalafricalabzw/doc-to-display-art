@@ -6,10 +6,10 @@ import { products } from "@/data/products";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Stellar Foods — The Smart Supergrain from Zimbabwe" },
-      { name: "description", content: "Stellar Foods cultivates and markets high-quality, gluten-free buckwheat products grown in Zimbabwe — groats, flour, porridge, kasha, tea, honey and more." },
-      { property: "og:title", content: "Stellar Foods — The Smart Supergrain from Zimbabwe" },
-      { property: "og:description", content: "Nutritious, sustainable buckwheat products from the highlands of Zimbabwe." },
+      { title: "Stellar Foods — The Highland Journal, Issue N°01" },
+      { name: "description", content: "An editorial pantry from the highlands of Zimbabwe. Seven single-origin buckwheat products — groats, flour, porridge, kasha, tea, honey and meal." },
+      { property: "og:title", content: "Stellar Foods — The Highland Journal" },
+      { property: "og:description", content: "Single-origin buckwheat from the Zimbabwean highlands." },
       { property: "og:image", content: heroBowl },
       { name: "twitter:image", content: heroBowl },
     ],
@@ -17,93 +17,77 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const values = [
-  { k: "01", t: "Sustainability", d: "Environmentally friendly cultivation and production practices, from field to finished pack." },
-  { k: "02", t: "Community", d: "Empowering local farmers and communities through job creation, education and fair trade." },
-  { k: "03", t: "Innovation", d: "Continuously improving our products, processes and the science behind buckwheat." },
-  { k: "04", t: "Quality", d: "Premium ingredients sourced from trusted producers, held to a single uncompromising standard." },
-];
-
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Nav />
-      <Hero />
-      <Marquee />
-      <About />
-      <MissionVision />
-      <Values />
-      <Products />
+      <Masthead />
+      <Cover />
+      <Contents />
+      <Feature />
+      <Range />
+      <QuoteBand />
       <Directors />
-      <Contact />
-      <Footer />
+      <Wholesale />
+      <Colophon />
     </div>
   );
 }
 
-function Nav() {
+function Masthead() {
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/60">
-      <div className="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
-        <a href="#top" className="flex items-baseline gap-2">
-          <span className="font-display text-2xl tracking-tight text-primary">Stellar</span>
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Foods</span>
+    <header className="sticky top-0 z-40 bg-background border-y border-ink/20 backdrop-blur">
+      <div className="mx-auto max-w-[1400px] px-6 py-4 flex items-center justify-between gap-6">
+        <a href="#cover" className="folio text-[11px] uppercase tracking-[0.24em] text-ink-soft">
+          <span className="text-terracotta">N°01</span> · The Highland Journal · Summer 2026
         </a>
-        <nav className="hidden md:flex items-center gap-9 text-sm text-foreground/80">
-          <a href="#about" className="hover:text-primary transition">About</a>
-          <a href="#products" className="hover:text-primary transition">Products</a>
-          <a href="#directors" className="hover:text-primary transition">Leadership</a>
-          <a href="#contact" className="hover:text-primary transition">Contact</a>
+        <nav className="hidden md:flex items-center gap-8 text-[12px] uppercase tracking-[0.18em] text-ink">
+          <a href="#feature" className="hover:text-terracotta transition">About</a>
+          <a href="#range" className="hover:text-terracotta transition">Range</a>
+          <a href="#directors" className="hover:text-terracotta transition">Editors</a>
+          <a href="#wholesale" className="hover:text-terracotta transition">Wholesale</a>
         </nav>
-        <a href="#contact" className="hidden md:inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm hover:bg-primary/90 transition">
-          Order wholesale
-          <span aria-hidden>→</span>
+        <a href="#wholesale" className="hidden md:inline-flex text-terracotta hover:text-terracotta-deep text-[12px] uppercase tracking-[0.18em] underline underline-offset-4 decoration-terracotta/40">
+          Open account →
         </a>
       </div>
     </header>
   );
 }
 
-function Hero() {
+function Cover() {
   return (
-    <section id="top" className="relative bg-primary text-primary-foreground">
-      <div className="grid lg:grid-cols-2 min-h-[calc(100vh-77px)]">
-        <div className="flex flex-col justify-center px-6 sm:px-10 lg:px-20 py-20 lg:py-32 lg:py-40 space-y-8">
-          <span className="text-accent font-semibold tracking-[0.3em] uppercase text-xs">Zimbabwean Grown · Est. 2024</span>
-          <h1 className="font-display font-black text-primary-foreground leading-[0.88] tracking-tighter text-[clamp(4rem,12vw,9rem)]">
-            Purely<br/>
-            <span className="italic font-light text-accent">Stellar.</span>
-          </h1>
-          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-md leading-relaxed">
-            Premium, single-origin buckwheat grown in the highlands of Zimbabwe. Nutrient-dense, naturally gluten-free, and ethically sourced for the modern kitchen.
-          </p>
-          <div className="flex flex-wrap gap-4 pt-2">
-            <a href="#products" className="group inline-flex items-center gap-3 px-8 py-4 bg-accent text-accent-foreground font-bold rounded-full hover:scale-[1.03] transition-transform text-base shadow-lg shadow-black/20">
-              Shop the range
-              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-            </a>
-            <a href="#contact" className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary-foreground/30 text-primary-foreground font-bold rounded-full hover:border-primary-foreground hover:bg-primary-foreground/5 transition-colors text-base">
-              Wholesale inquiry
-            </a>
-            <a href="#about" className="inline-flex items-center gap-2 px-2 py-4 text-primary-foreground/70 font-medium hover:text-accent transition-colors text-sm underline underline-offset-4 decoration-accent/60">
-              Our story
-            </a>
+    <section id="cover" className="border-b border-ink/15">
+      <div className="mx-auto max-w-[1400px] px-6 grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch min-h-[80vh]">
+        <div className="lg:col-span-7 flex flex-col justify-between py-16 lg:py-24">
+          <div>
+            <div className="h-eyebrow mb-10">The Buckwheat Issue</div>
+            <h1 className="h-display text-ink">
+              Stellar
+              <br />
+              <span className="italic text-terracotta">Foods.</span>
+            </h1>
+            <p className="mt-10 max-w-xl h-sub text-ink-soft">
+              A single-origin pantry, gathered from the highlands of Zimbabwe — quiet grains, dark honey, a golden cup of tea.
+            </p>
           </div>
-          <div className="pt-8 flex flex-wrap gap-x-8 gap-y-3 text-[11px] uppercase tracking-[0.25em] text-primary-foreground/60 border-t border-primary-foreground/15 mt-4">
-            <span className="pt-6">✦ Gluten-free</span>
-            <span className="pt-6">✦ Locally grown</span>
-            <span className="pt-6">✦ Family-run</span>
+          <div className="mt-14 pt-6 border-t border-ink/25 grid grid-cols-3 gap-6">
+            <MetaCell label="Est." value="2024" />
+            <MetaCell label="Origin" value="Zimbabwe" />
+            <MetaCell label="Range" value="Seven titles" />
           </div>
         </div>
-        <div className="relative bg-background flex items-center justify-center overflow-hidden min-h-[420px] py-16 lg:py-0">
-          <div className="absolute z-0 size-[68%] rounded-full bg-green-soft" />
-          <div className="absolute z-0 size-[62%] rounded-full border border-accent/30" />
-          <div className="relative z-10 w-[72%] aspect-square rounded-full shadow-luxe overflow-hidden rotate-3 hover:rotate-0 transition-transform duration-700">
-            <img src={heroBowl} alt="A wooden bowl filled with raw buckwheat groats on linen" className="h-full w-full object-cover" width={1600} height={1600} />
-          </div>
-          <div className="absolute bottom-8 right-8 z-20 bg-accent text-accent-foreground rounded-full size-28 sm:size-32 flex flex-col items-center justify-center text-center shadow-xl">
-            <span className="font-display text-3xl leading-none font-black">100%</span>
-            <span className="text-[10px] uppercase tracking-[0.2em] mt-1 font-bold">Natural</span>
+
+        <div className="lg:col-span-5 relative min-h-[420px] lg:min-h-0">
+          <img
+            src={heroBowl}
+            alt="Wooden bowl of raw buckwheat groats on linen"
+            className="absolute inset-0 h-full w-full object-cover"
+            width={1600}
+            height={2000}
+          />
+          <div className="absolute bottom-6 left-6 bg-terracotta text-accent-foreground px-4 py-3">
+            <div className="folio text-[10px] uppercase tracking-[0.24em] opacity-80">Cover</div>
+            <div className="font-display text-3xl leading-none">N°01</div>
           </div>
         </div>
       </div>
@@ -111,153 +95,135 @@ function Hero() {
   );
 }
 
-function Marquee() {
-  const items = ["NATURALLY GLUTEN-FREE", "SINGLE-ORIGIN", "ZIMBABWE-GROWN", "HIGH PROTEIN", "ANTIOXIDANT RICH", "FIELD TO PACK"];
-  return (
-    <div className="border-y border-border/60 bg-cream/40 py-5 overflow-hidden">
-      <div className="flex gap-12 animate-[scroll_30s_linear_infinite] whitespace-nowrap font-display text-2xl text-primary font-bold tracking-tight">
-        {[...items, ...items, ...items].map((t, i) => (
-          <span key={i} className="flex items-center gap-12">
-            {t}
-            <span className="text-accent">✦</span>
-          </span>
-        ))}
-      </div>
-      <style>{`@keyframes scroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <section id="about" className="mx-auto max-w-7xl px-6 py-32 lg:py-40 grid md:grid-cols-12 gap-12">
-      <div className="md:col-span-5">
-        <div className="h-eyebrow text-muted-foreground mb-6">About</div>
-        <h2 className="h-display text-primary">
-          Rooted in<br/>
-          <span className="italic font-light text-accent normal-case">the highlands.</span>
-        </h2>
-        <p className="h-sub mt-6 text-foreground/70 max-w-md">A family farm turned national pantry staple.</p>
-      </div>
-      <div className="md:col-span-6 md:col-start-7 space-y-6 text-lg leading-relaxed text-foreground/80">
-        <p>
-          Stellar Foods is a food processing and supply company dedicated to delivering nutritious, high-quality products that meet the needs of modern consumers.
-        </p>
-        <p>
-          We partner with local farmers and trusted producers to source premium ingredients — ensuring freshness, safety and sustainability across our value chain. Driven by innovation and a commitment to excellence, we continue to develop reliable, wholesome food solutions that support healthy living and contribute to the growth of our communities and the broader agricultural sector.
-        </p>
-        <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border/60 mt-10">
-          <Stat n="20+" l="Years of leadership" />
-          <Stat n="7" l="Buckwheat products" />
-          <Stat n="100%" l="Product of Zimbabwe" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Stat({ n, l }: { n: string; l: string }) {
+function MetaCell({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-display text-4xl text-primary">{n}</div>
-      <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground mt-2">{l}</div>
+      <div className="byline">{label}</div>
+      <div className="font-display text-2xl text-ink leading-tight mt-1">{value}</div>
     </div>
   );
 }
 
-function MissionVision() {
+function Contents() {
   return (
-    <section className="relative">
-      <div className="absolute inset-0">
-        <img src={field} alt="" className="h-full w-full object-cover" loading="lazy" width={1600} height={1000} />
-        <div className="absolute inset-0 bg-primary/85" />
-      </div>
-      <div className="relative mx-auto max-w-7xl px-6 py-32 lg:py-40 text-primary-foreground">
-        <div className="mb-16 max-w-4xl">
-          <div className="h-eyebrow opacity-70 mb-6">What drives us</div>
-          <h2 className="h-display">
-            We grow <span className="italic font-light text-accent normal-case">what nourishes.</span>
-          </h2>
-        </div>
-        <div className="grid md:grid-cols-2 gap-16">
-        <div>
-          <div className="text-xs uppercase tracking-[0.3em] opacity-70 mb-6">Mission</div>
-          <p className="font-display text-3xl md:text-4xl leading-snug italic">
-            “To cultivate and market high-quality buckwheat products that nourish and inspire our customers — prioritising sustainability, community development and innovation.”
-          </p>
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-[0.3em] opacity-70 mb-6">Vision</div>
-          <p className="font-display text-3xl md:text-4xl leading-snug italic">
-            “To be the leading provider of nutritious and sustainable buckwheat products in Africa.”
-          </p>
-        </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Values() {
-  return (
-    <section className="mx-auto max-w-7xl px-6 py-32 lg:py-40">
-      <div className="flex items-end justify-between mb-16">
-        <div>
-          <div className="h-eyebrow text-muted-foreground mb-6">What we stand on</div>
-          <h2 className="h-display text-primary">
-            Core<br/><span className="italic font-light text-accent normal-case">values.</span>
-          </h2>
-        </div>
-      </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border/60 border border-border/60">
-        {values.map((v) => (
-          <div key={v.k} className="bg-background p-10 hover:bg-cream/40 transition group">
-            <div className="font-display text-accent text-sm mb-8">{v.k}</div>
-            <h3 className="font-display text-2xl text-primary mb-3">{v.t}</h3>
-            <p className="text-sm text-foreground/70 leading-relaxed">{v.d}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Products() {
-  return (
-    <section id="products" className="bg-cream/50 py-32 lg:py-40 border-y border-border/60">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid md:grid-cols-12 gap-8 mb-16 items-end">
-          <div className="md:col-span-7">
-            <div className="h-eyebrow text-muted-foreground mb-6">Seven · Gluten-free · Single-origin</div>
-            <h2 className="h-display text-primary">
-              The<br/><span className="italic font-light text-accent normal-case">range.</span>
+    <section id="contents" className="border-b border-ink/15 bg-paper-2">
+      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-32">
+        <div className="grid lg:grid-cols-12 gap-10 mb-14 items-end">
+          <div className="lg:col-span-5">
+            <div className="h-eyebrow mb-6">Contents</div>
+            <h2 className="font-display text-5xl md:text-6xl text-ink leading-none">
+              Seven <span className="italic text-terracotta">titles.</span>
             </h2>
           </div>
-          <p className="md:col-span-4 md:col-start-9 h-sub text-foreground/70">
-            From whole groats to dark apiary honey.
+          <p className="lg:col-span-6 lg:col-start-7 text-ink-soft max-w-xl">
+            The full range, listed in order of appearance. Each entry opens on its own page.
+          </p>
+        </div>
+        <ol className="border-t border-ink/25">
+          {products.map((p, i) => (
+            <li key={p.slug} className="border-b border-ink/25">
+              <Link
+                to="/products/$slug"
+                params={{ slug: p.slug }}
+                className="group grid grid-cols-12 items-baseline gap-4 py-6 hover:bg-paper transition-colors"
+              >
+                <span className="col-span-1 folio text-terracotta text-lg">{String(i + 1).padStart(2, "0")}</span>
+                <span className="col-span-6 md:col-span-5 font-display text-2xl md:text-3xl text-ink group-hover:text-terracotta transition-colors">
+                  {p.name}
+                </span>
+                <span className="hidden md:inline-block col-span-4 byline text-ink-soft truncate">{p.tag}</span>
+                <span className="col-span-5 md:col-span-2 text-right folio text-ink-soft text-sm">
+                  <span className="hidden md:inline text-ink/30 tracking-[0.5em]">····</span> Page {String((i + 1) * 8).padStart(3, "0")} →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function Feature() {
+  return (
+    <section id="feature" className="border-b border-ink/15">
+      <div className="mx-auto max-w-[1400px] px-6 py-32 lg:py-44">
+        <div className="h-eyebrow mb-8">Feature · A Field Report</div>
+        <h2 className="font-display text-6xl md:text-8xl lg:text-9xl text-ink leading-[0.95] max-w-5xl">
+          Rooted in <span className="italic text-terracotta">the highlands</span> — a family farm, in its second act.
+        </h2>
+
+        <div className="mt-16 grid lg:grid-cols-12 gap-10 lg:gap-16">
+          <div className="lg:col-span-7 space-y-6 text-lg leading-relaxed text-ink dropcap">
+            <p>
+              Stellar Foods began as a single-crop conviction: that the small, triangular seed of the buckwheat plant — quiet, gluten-free, and quietly complete — deserved a place in the modern Zimbabwean pantry. From the family farm in Arcturus, the harvest now travels to seven separate titles: groats and flour, kasha and meal, an amber tea and a near-black honey.
+            </p>
+            <p>
+              We partner with local growers and hold every batch to a single standard. No shortcuts, no fillers, no imported grain dressed up as our own. What arrives on the shelf is what left the field.
+            </p>
+          </div>
+          <aside className="lg:col-span-5 flex flex-col justify-between gap-10">
+            <blockquote className="pull-quote text-ink">
+              “The grain is small, but the argument for it is not.”
+            </blockquote>
+            <div className="border-t border-ink/25 pt-6 grid grid-cols-3 gap-4">
+              <MetaCell label="Leadership" value="20+ yrs" />
+              <MetaCell label="Titles" value="Seven" />
+              <MetaCell label="Origin" value="100%" />
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Range() {
+  const [hero, ...rest] = products;
+  return (
+    <section id="range" className="border-b border-ink/15 bg-paper-2">
+      <div className="mx-auto max-w-[1400px] px-6 py-32 lg:py-44">
+        <div className="grid lg:grid-cols-12 gap-8 mb-14 items-end">
+          <div className="lg:col-span-7">
+            <div className="h-eyebrow mb-6">The Range · Seven titles</div>
+            <h2 className="font-display text-6xl md:text-8xl text-ink leading-[0.95]">
+              From <span className="italic text-terracotta">groat</span> to <span className="italic text-terracotta">jar.</span>
+            </h2>
+          </div>
+          <p className="lg:col-span-4 lg:col-start-9 text-ink-soft text-lg">
+            One field, one process, seven arrivals — each with its own page.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((p, i) => (
-            <Link
-              key={p.slug}
-              to="/products/$slug"
-              params={{ slug: p.slug }}
-              className={`group bg-background border border-border/60 overflow-hidden block ${i === 0 ? "lg:col-span-2" : ""}`}
-            >
-              <div className={`relative overflow-hidden ${i === 0 ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
-                <img src={p.img} alt={p.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" loading="lazy" width={1200} height={900} />
-                <span className="absolute top-4 left-4 bg-background/90 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-primary">
-                  {p.tag}
-                </span>
+        <div className="grid lg:grid-cols-12 gap-6">
+          <Link
+            to="/products/$slug"
+            params={{ slug: hero.slug }}
+            className="lg:col-span-8 group block bg-terracotta text-accent-foreground overflow-hidden"
+          >
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <img src={hero.img} alt={hero.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" loading="lazy" width={1600} height={1000} />
+            </div>
+            <div className="p-8 flex items-end justify-between gap-6">
+              <div>
+                <div className="folio text-[11px] uppercase tracking-[0.24em] opacity-80">Featured · N°01</div>
+                <h3 className="font-display text-5xl mt-2 leading-none">{hero.name}</h3>
+                <p className="mt-3 max-w-md opacity-90">{hero.copy}</p>
               </div>
-              <div className="p-7">
-                <h3 className="font-display text-2xl text-primary mb-2 group-hover:text-accent transition">{p.name}</h3>
-                <p className="text-sm text-foreground/70 leading-relaxed">{p.copy}</p>
-                <span className="mt-4 inline-block text-xs uppercase tracking-[0.25em] text-accent">Discover →</span>
-              </div>
-            </Link>
+              <span className="folio text-[12px] uppercase tracking-[0.24em] whitespace-nowrap">Read →</span>
+            </div>
+          </Link>
+
+          <div className="lg:col-span-4 grid grid-cols-1 gap-6">
+            {rest.slice(0, 2).map((p, i) => (
+              <RangeCard key={p.slug} p={p} n={i + 2} />
+            ))}
+          </div>
+
+          {rest.slice(2).map((p, i) => (
+            <div key={p.slug} className="lg:col-span-4">
+              <RangeCard p={p} n={i + 4} />
+            </div>
           ))}
         </div>
       </div>
@@ -265,69 +231,123 @@ function Products() {
   );
 }
 
-function Directors() {
+function RangeCard({ p, n }: { p: (typeof products)[number]; n: number }) {
   return (
-    <section id="directors" className="mx-auto max-w-7xl px-6 py-32 lg:py-40">
-      <div className="h-eyebrow text-muted-foreground mb-6">Leadership</div>
-      <h2 className="h-display text-primary">
-        The <span className="italic font-light text-accent normal-case">people</span><br/>behind it.
-      </h2>
-      <p className="h-sub mt-6 mb-16 text-foreground/70">Two founders. One harvest.</p>
+    <Link
+      to="/products/$slug"
+      params={{ slug: p.slug }}
+      className="group block bg-paper border-t border-ink/25 h-full"
+    >
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <img src={p.img} alt={p.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" loading="lazy" width={1200} height={900} />
+      </div>
+      <div className="p-6">
+        <div className="flex items-baseline justify-between gap-4">
+          <span className="folio text-terracotta text-sm">N°{String(n).padStart(2, "0")}</span>
+          <span className="byline">{p.tag}</span>
+        </div>
+        <h3 className="font-display text-3xl text-ink mt-2 leading-tight group-hover:text-terracotta transition-colors">{p.name}</h3>
+        <p className="text-sm text-ink-soft mt-3 leading-relaxed">{p.copy}</p>
+        <span className="mt-5 inline-block byline text-terracotta">Read entry →</span>
+      </div>
+    </Link>
+  );
+}
 
-      <div className="grid md:grid-cols-2 gap-16">
-        <Director
-          name="Kumbirai Zephaniah Mudadada"
-          role="Co-Founder & Director"
-          bio="With over 20 years of managerial expertise and an MBA in Accounting and Human Resources, Kumbirai has shaped Stellar Seeds into a trusted name in agriculture. He also directs Apee Construction and One Touch Electrical Services, and serves as General Manager of Wengara Estates — a farming venture focused on small grains and food security."
-          initials="KM"
-        />
-        <Director
-          name="Pardon Mugari"
-          role="Co-Founder & Director"
-          bio="An educationist and chemistry teacher, Pardon holds a BSc and MSc in Chemistry and is pursuing a PhD in Natural Products Chemistry focused on anti-diabetic phytocompounds. He founded the Hilbright Group of Science Colleges and dedicates much of his time to farming, apiculture and community empowerment."
-          initials="PM"
-        />
+function QuoteBand() {
+  return (
+    <section className="border-b border-ink/15 relative">
+      <div className="absolute inset-0 opacity-20">
+        <img src={field} alt="" className="h-full w-full object-cover" loading="lazy" />
+      </div>
+      <div className="relative mx-auto max-w-[1100px] px-6 py-32 lg:py-44 text-center">
+        <div className="h-eyebrow justify-center mb-10 inline-flex">Editor's note</div>
+        <blockquote className="font-display italic text-ink text-4xl md:text-6xl leading-[1.1]">
+          “The best pantry is a quiet one — a shelf of things you trust, arranged with a little ceremony.”
+        </blockquote>
+        <div className="mt-10 byline">— The Editors · Arcturus, Zimbabwe</div>
       </div>
     </section>
   );
 }
 
-function Director({ name, role, bio, initials }: { name: string; role: string; bio: string; initials: string }) {
+function Directors() {
   return (
-    <article className="border-t border-primary/20 pt-8">
-      <div className="flex items-center gap-5 mb-6">
-        <div className="size-16 rounded-full bg-primary text-primary-foreground font-display text-xl flex items-center justify-center">
-          {initials}
-        </div>
-        <div>
-          <h3 className="font-display text-2xl text-primary leading-tight">{name}</h3>
-          <div className="text-sm text-muted-foreground italic">{role}</div>
+    <section id="directors" className="border-b border-ink/15">
+      <div className="mx-auto max-w-[1400px] px-6 py-32 lg:py-44">
+        <div className="h-eyebrow mb-8">Masthead · The Editors</div>
+        <h2 className="font-display text-6xl md:text-8xl text-ink leading-[0.95]">
+          Two founders. <span className="italic text-terracotta">One harvest.</span>
+        </h2>
+
+        <div className="mt-16 grid md:grid-cols-2 gap-16 lg:gap-24">
+          <Director
+            n="01"
+            name="Kumbirai Zephaniah Mudadada"
+            role="Co-Founder & Director"
+            bio="With over 20 years of managerial expertise and an MBA in Accounting and Human Resources, Kumbirai has shaped Stellar Seeds into a trusted name in agriculture. He also directs Apee Construction and One Touch Electrical Services, and serves as General Manager of Wengara Estates — a farming venture focused on small grains and food security."
+            credentials={["MBA · Accounting & HR", "20+ years management", "GM · Wengara Estates", "Director · Apee Construction"]}
+          />
+          <Director
+            n="02"
+            name="Pardon Mugari"
+            role="Co-Founder & Director"
+            bio="An educationist and chemistry teacher, Pardon holds a BSc and MSc in Chemistry and is pursuing a PhD in Natural Products Chemistry focused on anti-diabetic phytocompounds. He founded the Hilbright Group of Science Colleges and dedicates much of his time to farming, apiculture and community empowerment."
+            credentials={["MSc · Chemistry", "PhD candidate · Natural Products", "Founder · Hilbright Group", "Apiarist & educator"]}
+          />
         </div>
       </div>
-      <p className="text-foreground/75 leading-relaxed">{bio}</p>
+    </section>
+  );
+}
+
+function Director({ n, name, role, bio, credentials }: { n: string; name: string; role: string; bio: string; credentials: string[] }) {
+  return (
+    <article>
+      <div className="flex items-baseline gap-4 border-t border-ink/25 pt-6">
+        <span className="folio text-terracotta text-lg">N°{n}</span>
+        <span className="byline">{role}</span>
+      </div>
+      <h3 className="font-display text-4xl md:text-5xl text-ink leading-tight mt-4">{name}</h3>
+      <p className="text-ink leading-relaxed mt-6 dropcap">{bio}</p>
+      <ul className="mt-8 border-t border-ink/25">
+        {credentials.map((c, i) => (
+          <li key={c} className="border-b border-ink/15 py-3 flex items-baseline gap-4">
+            <span className="folio text-terracotta text-xs w-8">{String(i + 1).padStart(2, "0")}</span>
+            <span className="text-ink">{c}</span>
+          </li>
+        ))}
+      </ul>
     </article>
   );
 }
 
-function Contact() {
+function Wholesale() {
   return (
-    <section id="contact" className="bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-7xl px-6 py-32 lg:py-40 grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-6">
-          <div className="h-eyebrow opacity-70 mb-6">Get in touch</div>
-          <h2 className="h-display">
-            Let's <span className="italic font-light text-accent normal-case">talk</span><br/>trade.
-          </h2>
-          <p className="h-sub mt-8 max-w-md opacity-85">
-            Wholesale, export and private-label enquiries.
-          </p>
-        </div>
-        <div className="md:col-span-5 md:col-start-8 space-y-8 text-lg">
+    <section id="wholesale" className="border-b border-ink/15 grid md:grid-cols-2">
+      <div className="bg-ink text-paper px-6 md:px-14 py-24 lg:py-40 flex flex-col justify-center">
+        <div className="h-eyebrow mb-8 text-paper/70">Wholesale · Export · Private label</div>
+        <h2 className="font-display text-5xl md:text-7xl leading-[0.95]">
+          Open a <span className="italic text-terracotta">wholesale</span> account.
+        </h2>
+        <p className="mt-8 max-w-md text-paper/75 text-lg leading-relaxed">
+          For bakeries, distributors, hotels and export partners. Bulk pack sizes, single-origin traceability, delivered from Arcturus.
+        </p>
+        <a
+          href="mailto:stellarfoods25@gmail.com?subject=Wholesale%20enquiry"
+          className="mt-12 inline-flex items-center gap-3 text-terracotta text-2xl font-display italic hover:text-paper transition-colors"
+        >
+          Write to the desk <span aria-hidden>→</span>
+        </a>
+      </div>
+      <div className="px-6 md:px-14 py-24 lg:py-40 flex flex-col justify-center">
+        <div className="h-eyebrow mb-8">Directory</div>
+        <dl className="border-t border-ink/25">
           <ContactRow label="Address" value="290 Mt. Olympus, Arcturus, Zimbabwe" />
           <ContactRow label="Telephone" value="+263 71 923 2075" href="tel:+263719232075" />
           <ContactRow label="Email" value="stellarfoods25@gmail.com" href="mailto:stellarfoods25@gmail.com" />
-          <ContactRow label="Registered" value="Stellar Seeds (Private) Limited · No. 4395/2024" />
-        </div>
+          <ContactRow label="Registered" value="Stellar Seeds (Pvt) Ltd · No. 4395/2024" />
+        </dl>
       </div>
     </section>
   );
@@ -335,27 +355,45 @@ function Contact() {
 
 function ContactRow({ label, value, href }: { label: string; value: string; href?: string }) {
   const content = href ? (
-    <a href={href} className="hover:text-accent transition">{value}</a>
+    <a href={href} className="hover:text-terracotta transition-colors">{value}</a>
   ) : (
     <span>{value}</span>
   );
   return (
-    <div className="border-t border-primary-foreground/20 pt-4">
-      <div className="text-[10px] uppercase tracking-[0.25em] opacity-60 mb-2">{label}</div>
-      <div className="font-display text-2xl">{content}</div>
+    <div className="border-b border-ink/25 py-5 grid grid-cols-12 gap-4 items-baseline">
+      <dt className="col-span-4 byline">{label}</dt>
+      <dd className="col-span-8 font-display text-xl md:text-2xl text-ink">{content}</dd>
     </div>
   );
 }
 
-function Footer() {
+function Colophon() {
   return (
-    <footer className="bg-primary text-primary-foreground/70 border-t border-primary-foreground/10">
-      <div className="mx-auto max-w-7xl px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-xs">
-        <div className="flex items-baseline gap-2">
-          <span className="font-display text-xl text-primary-foreground">Stellar</span>
-          <span className="uppercase tracking-[0.25em]">Foods</span>
+    <footer className="bg-ink text-paper">
+      <div className="mx-auto max-w-[1400px] px-6 py-16 grid md:grid-cols-3 gap-10 border-b border-paper/20">
+        <div>
+          <div className="font-display text-3xl">Stellar Foods</div>
+          <p className="mt-3 text-paper/60 text-sm max-w-xs">The Highland Journal — an editorial pantry from Arcturus, Zimbabwe.</p>
         </div>
+        <div>
+          <div className="byline text-paper/60 mb-4">Sections</div>
+          <ul className="space-y-2 text-paper/85">
+            <li><a href="#feature" className="hover:text-terracotta">Feature</a></li>
+            <li><a href="#range" className="hover:text-terracotta">The Range</a></li>
+            <li><a href="#directors" className="hover:text-terracotta">Editors</a></li>
+            <li><a href="#wholesale" className="hover:text-terracotta">Wholesale</a></li>
+          </ul>
+        </div>
+        <div>
+          <div className="byline text-paper/60 mb-4">Colophon</div>
+          <p className="text-paper/70 text-sm leading-relaxed">
+            Set in <span className="italic">Instrument Serif</span> and Work Sans. Printed on the open web from Arcturus, Zimbabwe.
+          </p>
+        </div>
+      </div>
+      <div className="mx-auto max-w-[1400px] px-6 py-6 flex flex-wrap items-center justify-between gap-3 text-xs text-paper/50">
         <div>© {new Date().getFullYear()} Stellar Seeds (Pvt) Ltd · Product of Zimbabwe</div>
+        <div className="folio">N°01 · Summer 2026</div>
       </div>
     </footer>
   );

@@ -1,6 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getProduct, products, type Product } from "@/data/products";
-import heroBowl from "@/assets/hero-bowl.jpg";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
@@ -27,17 +26,17 @@ export const Route = createFileRoute("/products/$slug")({
   notFoundComponent: () => (
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-6">
       <div className="text-center">
-        <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">404</div>
-        <h1 className="font-display text-5xl text-primary mb-6">Product not found</h1>
-        <Link to="/" className="text-accent hover:underline">Return home</Link>
+        <div className="byline mb-4">404 · Not found</div>
+        <h1 className="font-display text-5xl text-ink mb-6">This page has been unbound.</h1>
+        <Link to="/" className="text-terracotta italic font-display text-xl">← Return to the journal</Link>
       </div>
     </div>
   ),
   errorComponent: ({ reset }) => (
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-6">
       <div className="text-center">
-        <h1 className="font-display text-4xl text-primary mb-4">Something went wrong</h1>
-        <button onClick={reset} className="text-accent hover:underline">Try again</button>
+        <h1 className="font-display text-4xl text-ink mb-4">Something went wrong</h1>
+        <button onClick={reset} className="text-terracotta italic underline">Try again</button>
       </div>
     </div>
   ),
@@ -46,185 +45,168 @@ export const Route = createFileRoute("/products/$slug")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData() as { product: Product };
-  const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
+  const index = products.findIndex((p) => p.slug === product.slug);
+  const n = String(index + 1).padStart(2, "0");
+  const related = products.filter((p) => p.slug !== product.slug).slice(0, 4);
   const wholesaleMail = `mailto:stellarfoods25@gmail.com?subject=${encodeURIComponent(`Wholesale enquiry — ${product.name}`)}&body=${encodeURIComponent(`Hello Stellar Foods,\n\nI'd like to request wholesale pricing and availability for ${product.name}.\n\nQuantity required:\nDelivery location:\nContact name:\n\nThanks,`)}`;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
-          <Link to="/" className="flex items-baseline gap-2">
-            <span className="font-display text-2xl tracking-tight text-primary">Stellar</span>
-            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Foods</span>
+      <header className="sticky top-0 z-40 bg-background border-y border-ink/20 backdrop-blur">
+        <div className="mx-auto max-w-[1400px] px-6 py-4 flex items-center justify-between gap-6">
+          <Link to="/" className="folio text-[11px] uppercase tracking-[0.24em] text-ink-soft">
+            <span className="text-terracotta">←</span> The Highland Journal
           </Link>
-          <nav className="hidden md:flex items-center gap-9 text-sm text-foreground/80">
-            <Link to="/" hash="about" className="hover:text-primary transition">About</Link>
-            <Link to="/" hash="products" className="hover:text-primary transition">Products</Link>
-            <Link to="/" hash="directors" className="hover:text-primary transition">Leadership</Link>
-            <Link to="/" hash="contact" className="hover:text-primary transition">Contact</Link>
+          <nav className="hidden md:flex items-center gap-8 text-[12px] uppercase tracking-[0.18em] text-ink">
+            <Link to="/" hash="feature" className="hover:text-terracotta">About</Link>
+            <Link to="/" hash="range" className="hover:text-terracotta">Range</Link>
+            <Link to="/" hash="directors" className="hover:text-terracotta">Editors</Link>
+            <Link to="/" hash="wholesale" className="hover:text-terracotta">Wholesale</Link>
           </nav>
-          <Link to="/" hash="contact" className="hidden md:inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm hover:bg-primary/90 transition">
-            Order wholesale <span aria-hidden>→</span>
-          </Link>
+          <a href={wholesaleMail} className="hidden md:inline-flex text-terracotta hover:text-terracotta-deep text-[12px] uppercase tracking-[0.18em] underline underline-offset-4 decoration-terracotta/40">
+            Wholesale →
+          </a>
         </div>
       </header>
 
-      <nav aria-label="Breadcrumb" className="mx-auto max-w-7xl px-6 pt-10 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-        <Link to="/" className="hover:text-primary transition">Home</Link>
-        <span className="mx-3 opacity-50">/</span>
-        <Link to="/" hash="products" className="hover:text-primary transition">Products</Link>
-        <span className="mx-3 opacity-50">/</span>
-        <span className="text-foreground/70">{product.name}</span>
+      <nav aria-label="Breadcrumb" className="mx-auto max-w-[1400px] px-6 pt-10 folio text-[11px] uppercase tracking-[0.24em] text-ink-soft">
+        <Link to="/" className="hover:text-terracotta">Journal</Link>
+        <span className="mx-3 text-ink/30">/</span>
+        <Link to="/" hash="contents" className="hover:text-terracotta">Contents</Link>
+        <span className="mx-3 text-ink/30">/</span>
+        <span className="text-terracotta">N°{n}</span>
+        <span className="mx-2 text-ink/40">·</span>
+        <span className="text-ink">{product.name}</span>
       </nav>
 
-      <section className="mx-auto max-w-7xl px-6 pt-10 pb-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        <div className="lg:col-span-5 flex flex-col space-y-5">
-          <div className="relative aspect-[4/5] bg-primary rounded-3xl overflow-hidden shadow-xl">
-            <img src={product.img} alt={product.name} className="h-full w-full object-cover" width={1600} height={2000} />
-            <span className="absolute top-5 left-5 bg-accent text-accent-foreground px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] rounded-full">
-              {product.tag}
-            </span>
-          </div>
-          <div className="grid grid-cols-3 gap-3">
-            {related.slice(0, 3).map((r) => (
-              <Link key={r.slug} to="/products/$slug" params={{ slug: r.slug }} className="aspect-square overflow-hidden rounded-xl bg-cream group">
-                <img src={r.img} alt={r.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" loading="lazy" />
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="lg:col-span-7 space-y-8">
+      <section className="mx-auto max-w-[1400px] px-6 pt-10 pb-24 lg:pb-32 grid lg:grid-cols-12 gap-10 lg:gap-16 items-stretch border-b border-ink/15">
+        <div className="lg:col-span-7 flex flex-col justify-between py-8">
           <div>
-            <div className="h-eyebrow text-muted-foreground mb-5">{product.tag}</div>
-            <h1 className="font-display font-black text-primary leading-[0.9] tracking-tighter text-[clamp(2.75rem,6vw,5rem)]">
-              {product.name}
-            </h1>
-            <p className="mt-4 font-display text-2xl md:text-3xl italic font-light text-accent">{product.tagline}</p>
-          </div>
-
-          <div className="space-y-5 text-foreground/80 leading-relaxed text-lg max-w-2xl">
-            {product.description.map((para: string, i: number) => <p key={i}>{para}</p>)}
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-5 pt-2">
-            <a href="#contact" className="group p-7 border-2 border-primary rounded-2xl flex flex-col justify-between hover:bg-primary transition-colors">
-              <div>
-                <div className="text-[10px] uppercase tracking-[0.25em] text-accent font-bold mb-2 group-hover:text-accent">Retail</div>
-                <h3 className="font-display font-bold text-primary group-hover:text-primary-foreground text-2xl mb-2 leading-tight">Find a stockist</h3>
-                <p className="text-sm text-foreground/60 group-hover:text-primary-foreground/70">Individual packs available across Zimbabwe.</p>
-              </div>
-              <span className="mt-6 inline-flex items-center justify-between w-full py-3 px-5 bg-primary group-hover:bg-accent text-primary-foreground group-hover:text-accent-foreground font-bold rounded-lg transition-colors text-sm uppercase tracking-widest">
-                Order from stockist <span aria-hidden>→</span>
-              </span>
-            </a>
-
-            <a href={wholesaleMail} className="group p-7 border-2 border-accent bg-accent/10 rounded-2xl flex flex-col justify-between hover:bg-accent/20 transition-colors">
-              <div>
-                <div className="text-[10px] uppercase tracking-[0.25em] text-primary/70 font-bold mb-2">Bulk</div>
-                <h3 className="font-display font-bold text-primary text-2xl mb-2 leading-tight">Wholesale & bulk</h3>
-                <p className="text-sm text-foreground/70">For bakeries, hotels, distributors and export partners.</p>
-              </div>
-              <span className="mt-6 inline-flex items-center justify-between w-full py-3 px-5 bg-accent text-accent-foreground font-bold rounded-lg hover:brightness-105 transition-all text-sm uppercase tracking-widest">
-                Request pricing <span aria-hidden>→</span>
-              </span>
-            </a>
-          </div>
-
-          <div className="pt-4 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-bold uppercase tracking-[0.25em] text-foreground/50">
-            <a href="#ways-to-enjoy" className="hover:text-accent transition-colors underline decoration-2 underline-offset-4 decoration-accent/40">Recipe inspiration</a>
-            <Link to="/" hash="contact" className="hover:text-accent transition-colors underline decoration-2 underline-offset-4 decoration-accent/40">Talk to us</Link>
-            <Link to="/" hash="products" className="hover:text-accent transition-colors">← Back to range</Link>
-          </div>
-        </div>
-      </section>
-
-      <section id="ways-to-enjoy" className="bg-cream/50 border-y border-border/60 py-20 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-3 gap-12">
-          <div>
-            <div className="h-eyebrow text-muted-foreground mb-4">Why it matters</div>
-            <h3 className="font-display text-3xl text-primary mb-6 leading-none">Real <em className="italic font-light text-accent">reasons.</em></h3>
-            <ul className="space-y-4">
-              {product.highlights.map((h: string) => (
-                <li key={h} className="flex gap-3 items-start">
-                  <span className="text-accent mt-1.5">✦</span>
-                  <span className="font-display text-xl text-primary leading-snug">{h}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="h-eyebrow text-muted-foreground mb-4">Ways to enjoy</div>
-            <h3 className="font-display text-3xl text-primary mb-6 leading-none">Everyday <em className="italic font-light text-accent">uses.</em></h3>
-            <ul className="space-y-4">
-              {product.uses.map((u: string) => (
-                <li key={u} className="border-t border-border/60 pt-4 text-foreground/80">{u}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="h-eyebrow text-muted-foreground mb-4">Pack & supply</div>
-            <h3 className="font-display text-3xl text-primary mb-6 leading-none">Pack <em className="italic font-light text-accent">&amp; supply.</em></h3>
-            <dl className="space-y-5">
-              {product.pack.map((p: { label: string; value: string }) => (
-                <div key={p.label} className="border-t border-border/60 pt-4">
-                  <dt className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-1">{p.label}</dt>
-                  <dd className="font-display text-xl text-primary">{p.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-32 lg:py-40">
-        <div className="flex items-end justify-between mb-12">
-          <h2 className="font-display text-5xl md:text-7xl text-primary leading-none">More from <em className="italic font-light text-accent">the range.</em></h2>
-          <Link to="/" hash="products" className="text-xs uppercase tracking-[0.25em] text-muted-foreground hover:text-primary transition hidden md:inline">View all seven →</Link>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {related.map((p) => (
-            <Link
-              key={p.slug}
-              to="/products/$slug"
-              params={{ slug: p.slug }}
-              className="group bg-background border border-border/60 overflow-hidden block"
-            >
-              <div className="relative overflow-hidden aspect-[4/3]">
-                <img src={p.img} alt={p.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" loading="lazy" width={1200} height={900} />
-                <span className="absolute top-4 left-4 bg-background/90 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-primary">
-                  {p.tag}
+            <div className="h-eyebrow mb-8">{product.tag} · Entry N°{n}</div>
+            <h1 className="h-display text-ink">
+              {product.name.split(" ").map((w, i, arr) => (
+                <span key={i} className={i === arr.length - 1 ? "italic text-terracotta" : ""}>
+                  {w}
+                  {i < arr.length - 1 ? " " : ""}
                 </span>
-              </div>
-              <div className="p-7">
-                <h3 className="font-display text-2xl text-primary mb-2">{p.name}</h3>
-                <p className="text-sm text-foreground/70 leading-relaxed">{p.copy}</p>
-              </div>
-            </Link>
-          ))}
+              ))}
+            </h1>
+            <p className="mt-8 h-sub text-ink-soft max-w-xl">{product.tagline}</p>
+          </div>
+          <div className="mt-12 pt-6 border-t border-ink/25 byline">
+            The Highland Journal · Issue N°01 · Summer 2026
+          </div>
+        </div>
+        <div className="lg:col-span-5 relative min-h-[420px]">
+          <img src={product.img} alt={product.name} className="absolute inset-0 h-full w-full object-cover" width={1600} height={2000} />
+          <div className="absolute bottom-6 left-6 bg-terracotta text-accent-foreground px-4 py-3">
+            <div className="folio text-[10px] uppercase tracking-[0.24em] opacity-80">Entry</div>
+            <div className="font-display text-3xl leading-none">N°{n}</div>
+          </div>
         </div>
       </section>
 
-      <footer className="bg-primary text-primary-foreground/70 border-t border-primary-foreground/10">
-        <div className="mx-auto max-w-7xl px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-xs">
-          <div className="flex items-baseline gap-2">
-            <span className="font-display text-xl text-primary-foreground">Stellar</span>
-            <span className="uppercase tracking-[0.25em]">Foods</span>
+      <section className="mx-auto max-w-[1400px] px-6 py-24 lg:py-32 grid lg:grid-cols-12 gap-10 lg:gap-16 border-b border-ink/15">
+        <div className="lg:col-span-7">
+          <div className="h-eyebrow mb-8">Why it matters</div>
+          <div className="space-y-6 text-lg text-ink leading-relaxed dropcap">
+            {product.description.map((para, i) => <p key={i}>{para}</p>)}
           </div>
+          <ul className="mt-10 border-t border-ink/25">
+            {product.highlights.map((h, i) => (
+              <li key={h} className="border-b border-ink/15 py-4 flex items-baseline gap-5">
+                <span className="folio text-terracotta w-10 text-sm">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-display text-2xl text-ink">{h}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <aside className="lg:col-span-5 lg:pl-8 lg:border-l border-ink/15">
+          <blockquote className="pull-quote text-ink mb-12">
+            {product.tagline}
+          </blockquote>
+          <div className="h-eyebrow mb-6">Pack &amp; supply</div>
+          <dl className="border-t border-ink/25">
+            {product.pack.map((p) => (
+              <div key={p.label} className="border-b border-ink/25 py-4 grid grid-cols-12 gap-4 items-baseline">
+                <dt className="col-span-5 byline">{p.label}</dt>
+                <dd className="col-span-7 font-display text-xl text-ink">{p.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="mt-10 flex flex-col gap-4">
+            <a href={wholesaleMail} className="font-display italic text-terracotta text-2xl hover:text-terracotta-deep transition-colors">
+              Wholesale inquiry →
+            </a>
+            <Link to="/" hash="wholesale" className="font-display italic text-ink text-2xl hover:text-terracotta transition-colors">
+              Find a stockist →
+            </Link>
+          </div>
+        </aside>
+      </section>
+
+      <section id="ways-to-enjoy" className="border-b border-ink/15 bg-paper-2">
+        <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-32">
+          <div className="h-eyebrow mb-8">Ways to enjoy</div>
+          <h2 className="font-display text-5xl md:text-7xl text-ink leading-[0.95] mb-14">
+            Everyday <span className="italic text-terracotta">uses.</span>
+          </h2>
+          <ol className="grid md:grid-cols-2 gap-x-16">
+            {product.uses.map((u, i) => (
+              <li key={u} className="border-t border-ink/25 py-6 flex items-baseline gap-6">
+                <span className="font-display text-terracotta text-4xl leading-none w-14">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-display text-2xl md:text-3xl text-ink leading-tight">{u}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="border-b border-ink/15">
+        <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-32">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <div className="h-eyebrow mb-6">Continue reading</div>
+              <h2 className="font-display text-5xl md:text-7xl text-ink leading-[0.95]">
+                More from <span className="italic text-terracotta">the range.</span>
+              </h2>
+            </div>
+            <Link to="/" hash="contents" className="hidden md:inline byline text-terracotta">All seven titles →</Link>
+          </div>
+          <ol className="border-t border-ink/25">
+            {related.map((p) => {
+              const idx = products.findIndex((x) => x.slug === p.slug);
+              return (
+                <li key={p.slug} className="border-b border-ink/25">
+                  <Link
+                    to="/products/$slug"
+                    params={{ slug: p.slug }}
+                    className="group grid grid-cols-12 items-baseline gap-4 py-6 hover:bg-paper-2 transition-colors"
+                  >
+                    <span className="col-span-1 folio text-terracotta text-lg">{String(idx + 1).padStart(2, "0")}</span>
+                    <span className="col-span-6 md:col-span-5 font-display text-2xl md:text-3xl text-ink group-hover:text-terracotta">
+                      {p.name}
+                    </span>
+                    <span className="hidden md:inline-block col-span-4 byline text-ink-soft truncate">{p.tag}</span>
+                    <span className="col-span-5 md:col-span-2 text-right folio text-ink-soft text-sm">
+                      Read →
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      <footer className="bg-ink text-paper">
+        <div className="mx-auto max-w-[1400px] px-6 py-10 flex flex-wrap items-center justify-between gap-4 text-xs text-paper/60">
+          <div className="font-display text-paper text-xl">Stellar Foods</div>
           <div>© {new Date().getFullYear()} Stellar Seeds (Pvt) Ltd · Product of Zimbabwe</div>
+          <div className="folio">N°{n} · {product.name}</div>
         </div>
       </footer>
-      <img src={heroBowl} alt="" className="hidden" aria-hidden />
-
-      {/* Mobile sticky action bar */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-primary border-t border-primary-foreground/15 shadow-2xl px-4 py-3 flex gap-3">
-        <a href={wholesaleMail} className="flex-1 inline-flex items-center justify-center py-3 px-4 bg-accent text-accent-foreground font-bold rounded-full text-sm uppercase tracking-wider">
-          Wholesale
-        </a>
-        <Link to="/" hash="contact" className="flex-1 inline-flex items-center justify-center py-3 px-4 border-2 border-primary-foreground/30 text-primary-foreground font-bold rounded-full text-sm uppercase tracking-wider">
-          Contact
-        </Link>
-      </div>
     </div>
   );
 }
