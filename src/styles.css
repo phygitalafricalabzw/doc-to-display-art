@@ -204,10 +204,6 @@
   line-height: 1;
 }
 
-@utility h-eyebrow::before {
-  content: none;
-}
-
 @utility lead {
   font-size: 1.20rem;
   line-height: 1.55;
