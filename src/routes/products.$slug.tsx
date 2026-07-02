@@ -22,19 +22,19 @@ export const Route = createFileRoute("/products/$slug")({
     };
   },
   notFoundComponent: () => (
-    <div className="min-h-screen bg-sun text-soot flex items-center justify-center px-6">
-      <div className="text-center">
-        <div className="sticker mb-6">404 · NOT HERE</div>
-        <h1 className="h-display mb-8">WRONG<br /><span className="text-tomato">SHELF.</span></h1>
-        <Link to="/" className="chunky-btn">← BACK TO SHOP</Link>
+    <div className="min-h-screen bg-canvas text-ink flex items-center justify-center px-6">
+      <div className="text-center max-w-md">
+        <span className="h-eyebrow rule-eyebrow mb-4">404</span>
+        <h1 className="h-sub mt-4 mb-6">This product isn't on the shelf.</h1>
+        <Link to="/" className="btn-primary">Back to the range</Link>
       </div>
     </div>
   ),
   errorComponent: ({ reset }) => (
-    <div className="min-h-screen bg-sun text-soot flex items-center justify-center px-6">
+    <div className="min-h-screen bg-canvas text-ink flex items-center justify-center px-6">
       <div className="text-center">
-        <h1 className="h-display mb-6">OOPS.</h1>
-        <button onClick={reset} className="chunky-btn">TRY AGAIN →</button>
+        <h1 className="h-sub mb-6">Something went wrong.</h1>
+        <button onClick={reset} className="btn-primary">Try again</button>
       </div>
     </div>
   ),
@@ -48,104 +48,110 @@ function ProductPage() {
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
   const wholesaleMail = `mailto:stellarfoods25@gmail.com?subject=${encodeURIComponent(`Wholesale — ${product.name}`)}&body=${encodeURIComponent(`Hi Stellar Foods,\n\nI'd like wholesale pricing for ${product.name}.\n\nQuantity:\nLocation:\nName:\n\nThanks!`)}`;
 
-  const heroBgs = ["bg-tomato", "bg-leaf", "bg-sun", "bg-tomato", "bg-leaf", "bg-sun", "bg-tomato"];
-  const heroBg = heroBgs[index % heroBgs.length];
+  const words = product.name.split(" ");
+  const lastWord = words[words.length - 1];
+  const leadWords = words.slice(0, -1).join(" ");
 
   return (
-    <div className="min-h-screen bg-sun text-soot overflow-x-hidden">
-      {/* Marquee */}
-      <div className="bg-soot text-sun py-3 overflow-hidden border-b-2 border-soot">
-        <div className="marquee-track font-display text-sm tracking-wider">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <span key={i}>★ STELLAR FOODS ★ N°{n} · {product.name.toUpperCase()} ★ HIGHLAND GROWN ★ </span>
-          ))}
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-canvas text-ink">
       {/* Nav */}
-      <header className="sticky top-0 z-40 bg-sun border-b-2 border-soot">
-        <div className="mx-auto max-w-[1400px] px-6 py-4 flex items-center justify-between gap-6">
-          <Link to="/" className="font-display text-2xl md:text-3xl tracking-tight">
-            STELLAR<span className="text-tomato">★</span>FOODS
+      <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur border-b border-line">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 h-16 flex items-center justify-between">
+          <Link to="/" className="font-display font-bold text-xl tracking-tight text-ink">
+            Stellar<span className="text-ember">.</span>
           </Link>
-          <Link to="/" className="sticker !bg-tomato !text-bone">← BACK TO SHOP</Link>
-          <a href={wholesaleMail} className="hidden md:inline-flex chunky-btn text-sm !py-2 !px-4">
-            WHOLESALE →
-          </a>
+          <nav className="hidden md:flex items-center gap-8 text-sm text-ink-soft">
+            <Link to="/" hash="range" className="hover:text-ink transition-colors">Range</Link>
+            <Link to="/" hash="story" className="hover:text-ink transition-colors">Story</Link>
+            <Link to="/" hash="wholesale" className="hover:text-ink transition-colors">Wholesale</Link>
+          </nav>
+          <a href={wholesaleMail} className="btn-primary text-sm">Enquire</a>
         </div>
       </header>
 
+      {/* Breadcrumb */}
+      <div className="border-b border-line">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-4 text-sm text-ink-soft flex items-center gap-2">
+          <Link to="/" hash="range" className="hover:text-ember transition-colors inline-flex items-center gap-1">
+            <span className="text-ember" aria-hidden>←</span> Range
+          </Link>
+          <span aria-hidden>/</span>
+          <span className="text-ink">{product.name}</span>
+        </div>
+      </div>
+
       {/* Hero */}
-      <section className="bg-sun border-b-2 border-soot">
-        <div className="mx-auto max-w-[1400px] px-6 py-16 lg:py-24 grid lg:grid-cols-12 gap-12 items-center">
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-20 lg:py-28 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-7">
-            <span className="h-eyebrow mb-6">N°{n} · {product.tag}</span>
-            <h1 className="h-display mt-6">
-              {product.name.toUpperCase().split(" ").map((w, i, arr) => (
-                <span key={i} className={i === arr.length - 1 ? "text-tomato" : ""}>
-                  {w}
-                  {i < arr.length - 1 ? <br /> : ""}
-                </span>
-              ))}
+            <span className="h-eyebrow rule-eyebrow mb-6">N°{n} · {product.tag}</span>
+            <h1 className="h-display mt-6 text-ink">
+              {leadWords && <>{leadWords} </>}
+              <span className="relative inline-block">
+                {lastWord}
+                <svg className="absolute -bottom-2 left-0 w-full" height="14" viewBox="0 0 300 14" fill="none" preserveAspectRatio="none">
+                  <path d="M2 8 Q 75 2, 150 7 T 298 6" stroke="var(--ember)" strokeWidth="4" strokeLinecap="round" fill="none" />
+                </svg>
+              </span>
             </h1>
             <p className="lead mt-8 max-w-xl">{product.tagline}</p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a href={wholesaleMail} className="chunky-btn">WHOLESALE INQUIRY →</a>
-              <Link to="/" hash="range" className="chunky-btn-outline">FIND A STOCKIST</Link>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <a href={wholesaleMail} className="btn-primary">Wholesale enquiry <span aria-hidden>→</span></a>
+              <Link to="/" hash="range" className="btn-ghost">Find a stockist</Link>
             </div>
           </div>
 
-          <div className="lg:col-span-5 relative flex items-center justify-center min-h-[420px]">
-            <div className="relative w-[85%] aspect-square">
-              <div className={`absolute inset-0 rounded-full border-2 border-soot ${heroBg}`} style={{ boxShadow: "10px 10px 0 var(--soot)", transform: "rotate(-4deg)" }} />
-              <div className="absolute inset-4 rounded-full overflow-hidden border-2 border-soot bg-bone">
-                <img src={product.img} alt={product.name} className="h-full w-full object-cover" />
-              </div>
-              <span className="sticker absolute -top-3 -right-2 !bg-sun rotate-12">N°{n}</span>
-              <span className="sticker absolute -bottom-2 -left-2 !bg-leaf !text-sun -rotate-6">{product.tag.toUpperCase()}</span>
+          <div className="lg:col-span-5">
+            <div className="rounded-3xl overflow-hidden bg-fresh-tint aspect-square">
+              <img src={product.img} alt={product.name} className="h-full w-full object-cover" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Why it matters */}
-      <section className="bg-bone border-b-2 border-soot">
-        <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-32">
-          <span className="h-eyebrow mb-6">Why it matters</span>
-          <h2 className="h-display mt-6 max-w-4xl">THE<br /><span className="text-tomato">STORY.</span></h2>
-          <div className="mt-12 grid lg:grid-cols-12 gap-10">
-            <div className="lg:col-span-7 space-y-6 text-lg leading-relaxed">
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-32">
+          <div className="grid lg:grid-cols-12 gap-12 items-start mb-14">
+            <div className="lg:col-span-5">
+              <span className="h-eyebrow rule-eyebrow mb-6">Why it matters</span>
+              <h2 className="h-sub mt-6">The story behind the pack.</h2>
+            </div>
+            <div className="lg:col-span-7 space-y-5 text-ink-soft text-lg leading-relaxed">
               {product.description.map((para, i) => <p key={i}>{para}</p>)}
             </div>
-            <div className="lg:col-span-5 space-y-5">
-              {product.highlights.map((h, i) => (
-                <div key={h} className="poster-card p-5 flex items-center gap-5">
-                  <div className="shrink-0 w-14 h-14 rounded-full bg-tomato border-2 border-soot flex items-center justify-center font-display text-lg text-bone" style={{ boxShadow: "3px 3px 0 var(--soot)" }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <div className="font-display text-xl leading-tight">{h.toUpperCase()}</div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {product.highlights.map((h, i) => (
+              <div key={h} className="soft-card p-6">
+                <div className="text-xs font-semibold tracking-[0.14em] text-ember">
+                  {String(i + 1).padStart(2, "0")}
                 </div>
-              ))}
-            </div>
+                <div className="font-display font-semibold text-lg mt-3 text-ink leading-snug">{h}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Pack & supply */}
-      <section className="bg-leaf text-sun border-b-2 border-soot">
-        <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-32">
-          <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
-            <div>
-              <span className="h-eyebrow mb-6 !bg-sun !text-soot">Pack &amp; supply</span>
-              <h2 className="h-display mt-6">HOW IT<br /><span className="text-tomato">SHIPS.</span></h2>
+      <section className="bg-fresh-tint border-b border-line">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-32">
+          <div className="grid lg:grid-cols-12 gap-12 items-end mb-12">
+            <div className="lg:col-span-8">
+              <span className="h-eyebrow rule-eyebrow mb-6">Pack &amp; supply</span>
+              <h2 className="h-sub mt-6">How it ships.</h2>
             </div>
-            <a href={wholesaleMail} className="chunky-btn !bg-sun !text-soot">GET A QUOTE →</a>
+            <div className="lg:col-span-4 lg:text-right">
+              <a href={wholesaleMail} className="btn-primary">Request a quote <span aria-hidden>→</span></a>
+            </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {product.pack.map((p, i) => (
-              <div key={p.label} className={`poster-card p-8 text-soot ${i % 2 === 0 ? "rotate-[-1deg]" : "rotate-[1deg]"}`}>
-                <span className="tape mb-4">{p.label}</span>
-                <div className="font-display text-4xl mt-4 leading-none">{p.value}</div>
+          <div className="border-y border-line divide-y divide-line">
+            {product.pack.map((p) => (
+              <div key={p.label} className="grid grid-cols-[1fr_2fr] gap-6 py-6 items-baseline">
+                <div className="text-xs uppercase tracking-[0.14em] text-ember font-semibold">{p.label}</div>
+                <div className="font-display font-semibold text-xl md:text-2xl text-ink">{p.value}</div>
               </div>
             ))}
           </div>
@@ -153,17 +159,18 @@ function ProductPage() {
       </section>
 
       {/* Ways to enjoy */}
-      <section className="bg-tomato text-soot border-b-2 border-soot">
-        <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-32">
-          <span className="h-eyebrow mb-6 !bg-sun !text-soot">Ways to enjoy</span>
-          <h2 className="h-display mt-6 max-w-4xl">EAT IT<br /><span className="text-bone">EVERYDAY.</span></h2>
-          <div className="mt-14 grid md:grid-cols-2 gap-6">
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-32">
+          <span className="h-eyebrow rule-eyebrow mb-6">Ways to enjoy</span>
+          <h2 className="h-sub mt-6 max-w-2xl">Practical, everyday uses.</h2>
+
+          <div className="mt-14 border-t border-line">
             {product.uses.map((u, i) => (
-              <div key={u} className="poster-card p-6 flex items-center gap-6 bg-sun">
-                <div className="shrink-0 w-20 h-20 rounded-full bg-soot text-sun border-2 border-soot flex items-center justify-center font-display text-3xl" style={{ boxShadow: "3px 3px 0 var(--tomato)" }}>
+              <div key={u} className="grid grid-cols-[auto_1fr] gap-8 items-baseline py-8 border-b border-line">
+                <div className="font-display font-bold text-4xl md:text-5xl text-ink leading-none w-16">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="font-display text-2xl leading-tight">{u.toUpperCase()}</div>
+                <div className="font-display font-semibold text-xl md:text-2xl text-ink">{u}</div>
               </div>
             ))}
           </div>
@@ -171,48 +178,42 @@ function ProductPage() {
       </section>
 
       {/* Related */}
-      <section className="bg-sun border-b-2 border-soot">
-        <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-32">
-          <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-32">
+          <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
             <div>
-              <span className="h-eyebrow mb-6">Keep shopping</span>
-              <h2 className="h-display mt-6">MORE FROM<br /><span className="text-tomato">THE RANGE.</span></h2>
+              <span className="h-eyebrow rule-eyebrow mb-6">Keep exploring</span>
+              <h2 className="h-sub mt-6">More from the range.</h2>
             </div>
-            <Link to="/" hash="range" className="chunky-btn">SEE ALL 7 →</Link>
+            <Link to="/" hash="range" className="btn-link">See all seven <span aria-hidden>→</span></Link>
           </div>
-          <div className="grid sm:grid-cols-3 gap-8">
-            {related.map((p, i) => {
-              const idx = products.findIndex((x) => x.slug === p.slug);
-              const bgs = ["bg-tomato", "bg-leaf", "bg-sun"];
-              return (
-                <Link
-                  key={p.slug}
-                  to="/products/$slug"
-                  params={{ slug: p.slug }}
-                  className={`poster-card block overflow-hidden ${i % 2 === 0 ? "rotate-[-1.5deg]" : "rotate-[1.5deg]"}`}
-                >
-                  <div className={`relative aspect-square overflow-hidden border-b-2 border-soot ${bgs[i % 3]}`}>
-                    <img src={p.img} alt={p.name} className="h-full w-full object-cover mix-blend-multiply" loading="lazy" />
-                    <span className="absolute top-3 left-3 sticker !text-xs">N°{String(idx + 1).padStart(2, "0")}</span>
-                  </div>
-                  <div className="p-5">
-                    <span className="tape mb-3">{p.tag}</span>
-                    <h3 className="font-display text-2xl mt-3 leading-none">{p.name.toUpperCase()}</h3>
-                    <span className="mt-4 inline-block font-display text-sm text-tomato">READ →</span>
-                  </div>
-                </Link>
-              );
-            })}
+          <div className="grid sm:grid-cols-3 gap-6">
+            {related.map((p) => (
+              <Link
+                key={p.slug}
+                to="/products/$slug"
+                params={{ slug: p.slug }}
+                className="soft-card block overflow-hidden group"
+              >
+                <div className="aspect-[4/3] overflow-hidden bg-fresh-tint">
+                  <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                </div>
+                <div className="p-6">
+                  <span className="text-xs font-semibold tracking-[0.14em] uppercase text-ember">{p.tag}</span>
+                  <h3 className="font-display font-semibold text-xl mt-2 text-ink">{p.name}</h3>
+                  <span className="btn-link mt-4">View product <span aria-hidden>→</span></span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-soot text-sun">
-        <div className="mx-auto max-w-[1400px] px-6 py-10 flex flex-wrap items-center justify-between gap-4">
-          <div className="font-display text-2xl">STELLAR<span className="text-tomato">★</span>FOODS</div>
-          <div className="text-xs text-sun/70">© {new Date().getFullYear()} Stellar Seeds (Pvt) Ltd · Product of Zimbabwe</div>
-          <div className="sticker !bg-tomato !text-bone">N°{n} · {product.name.toUpperCase()}</div>
+      <footer className="bg-canvas">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-10 flex flex-wrap items-center justify-between gap-4 border-t border-line">
+          <div className="font-display font-bold text-xl text-ink">Stellar<span className="text-ember">.</span></div>
+          <div className="text-xs text-ink-soft">© {new Date().getFullYear()} Stellar Seeds (Pvt) Ltd · Product of Zimbabwe</div>
         </div>
       </footer>
     </div>
