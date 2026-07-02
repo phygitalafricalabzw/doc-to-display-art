@@ -5,9 +5,9 @@ import { products } from "@/data/products";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Stellar Foods — Buckwheat Goodness, Highland Grown" },
-      { name: "description", content: "Bold, single-origin buckwheat from the highlands of Zimbabwe. Groats, flour, porridge, kasha, tea, honey and meal — all from one field." },
-      { property: "og:title", content: "Stellar Foods — Buckwheat Goodness" },
+      { title: "Stellar Foods — Highland Buckwheat, Done Properly" },
+      { name: "description", content: "Single-origin buckwheat from the Zimbabwean highlands. Seven products — groats, flour, porridge, kasha, tea, honey and meal — grown, milled and packed on one family farm." },
+      { property: "og:title", content: "Stellar Foods — Highland Buckwheat" },
       { property: "og:description", content: "Single-origin buckwheat from the Zimbabwean highlands." },
       { property: "og:image", content: heroBowl },
       { name: "twitter:image", content: heroBowl },
@@ -18,63 +18,33 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-sun text-soot overflow-x-hidden">
-      <TopMarquee />
-      <Nav />
+    <div className="min-h-screen bg-background text-foreground">
+      <TopBar />
       <Hero />
-      <ProductMarquee />
+      <TrustStrip />
       <Range />
-      <Why />
-      <BigQuote />
-      <HowToEat />
-      <Wholesale />
+      <Story />
+      <WholesaleSlab />
+      <Contact />
       <Footer />
     </div>
   );
 }
 
-function TopMarquee() {
-  const text = "STELLAR FOODS ★ HIGHLAND GROWN ★ SINGLE ORIGIN ★ ZIMBABWE ★ BUCKWHEAT GOODNESS ★ ";
+function TopBar() {
   return (
-    <div className="bg-soot text-sun py-3 overflow-hidden border-b-2 border-soot">
-      <div className="marquee-track font-display text-sm tracking-wider">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <span key={i}>{text}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ProductMarquee() {
-  const names = products.map((p) => p.name.toUpperCase()).join(" ★ ") + " ★ ";
-  return (
-    <div className="bg-leaf text-sun py-6 overflow-hidden border-y-2 border-soot">
-      <div className="marquee-track font-display text-2xl md:text-4xl tracking-tight">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <span key={i}>{names}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Nav() {
-  return (
-    <header className="sticky top-0 z-40 bg-sun border-b-2 border-soot">
-      <div className="mx-auto max-w-[1400px] px-6 py-4 flex items-center justify-between gap-6">
-        <Link to="/" className="font-display text-2xl md:text-3xl tracking-tight">
-          STELLAR<span className="text-tomato">★</span>FOODS
+    <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur border-b border-line">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 h-16 flex items-center justify-between">
+        <Link to="/" className="font-display font-bold text-xl tracking-tight text-ink">
+          Stellar<span className="text-ember">.</span>
         </Link>
-        <nav className="hidden md:flex items-center gap-6 font-display text-sm">
-          <a href="#range" className="hover:text-tomato">SHOP</a>
-          <a href="#why" className="hover:text-tomato">WHY</a>
-          <a href="#howto" className="hover:text-tomato">HOW</a>
-          <a href="#wholesale" className="hover:text-tomato">WHOLESALE</a>
+        <nav className="hidden md:flex items-center gap-8 text-sm text-ink-soft">
+          <a href="#range" className="hover:text-ink transition-colors">Range</a>
+          <a href="#story" className="hover:text-ink transition-colors">Story</a>
+          <a href="#wholesale" className="hover:text-ink transition-colors">Wholesale</a>
+          <a href="#contact" className="hover:text-ink transition-colors">Contact</a>
         </nav>
-        <a href="#range" className="chunky-btn text-sm !py-2 !px-4">
-          SHOP →
-        </a>
+        <a href="#range" className="btn-primary text-sm">Shop the range</a>
       </div>
     </header>
   );
@@ -82,31 +52,45 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="bg-sun border-b-2 border-soot relative overflow-hidden">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 lg:py-24 grid lg:grid-cols-12 gap-10 items-center min-h-[80vh]">
+    <section className="border-b border-line">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-20 lg:py-28 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         <div className="lg:col-span-7">
-          <span className="h-eyebrow mb-6">Est. 2024 · Arcturus, Zimbabwe</span>
-          <h1 className="h-display text-soot mt-6">
-            BUCK<br />WHEAT<br /><span className="text-tomato">GOODNESS.</span>
+          <span className="h-eyebrow rule-eyebrow mb-8">Highland Buckwheat · Est. 2024</span>
+          <h1 className="h-display mt-6 text-ink">
+            Buckwheat,<br />
+            done{" "}
+            <span className="relative inline-block">
+              properly
+              <svg className="absolute -bottom-2 left-0 w-full" height="14" viewBox="0 0 300 14" fill="none" preserveAspectRatio="none">
+                <path d="M2 8 Q 75 2, 150 7 T 298 6" stroke="var(--ember)" strokeWidth="4" strokeLinecap="round" fill="none" />
+              </svg>
+            </span>
+            .
           </h1>
           <p className="lead mt-8 max-w-xl">
-            Loud, honest, single-origin buckwheat from a family farm in the Zimbabwean highlands. Seven products. One field. Zero shortcuts.
+            Single-origin buckwheat grown, milled and packed on a family farm in the Zimbabwean highlands. Seven honest products from one field — nothing added, nothing hidden.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#range" className="chunky-btn">SHOP THE RANGE →</a>
-            <a href="#wholesale" className="chunky-btn-outline">WHOLESALE ↓</a>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a href="#range" className="btn-primary">Explore the range <span aria-hidden>→</span></a>
+            <a href="#wholesale" className="btn-ghost">Wholesale enquiry</a>
           </div>
         </div>
 
-        <div className="lg:col-span-5 relative flex items-center justify-center min-h-[420px]">
-          <div className="relative w-[85%] aspect-square">
-            <div className="absolute inset-0 rounded-full bg-tomato border-2 border-soot" style={{ boxShadow: "10px 10px 0 var(--soot)", transform: "rotate(-4deg)" }} />
-            <div className="absolute inset-4 rounded-full overflow-hidden border-2 border-soot bg-bone">
-              <img src={heroBowl} alt="Bowl of buckwheat groats" className="h-full w-full object-cover" />
-            </div>
-            <span className="sticker absolute -top-4 -right-2 !bg-sun rotate-12">★ 100% NATURAL</span>
-            <span className="sticker absolute -bottom-2 -left-4 !bg-leaf !text-sun -rotate-6">MADE IN ZW</span>
-            <span className="sticker absolute top-1/3 -right-8 rotate-6">GLUTEN FREE</span>
+        <div className="lg:col-span-5">
+          <div className="rounded-3xl overflow-hidden bg-fresh-tint aspect-square">
+            <img src={heroBowl} alt="Bowl of highland buckwheat groats" className="h-full w-full object-cover" />
+          </div>
+          <div className="mt-6 grid grid-cols-3 divide-x divide-line border-y border-line">
+            {[
+              { n: "7", label: "Products" },
+              { n: "100%", label: "Natural" },
+              { n: "ZW", label: "Highlands" },
+            ].map((m) => (
+              <div key={m.label} className="py-4 px-3 text-center">
+                <div className="font-display text-2xl text-ink"><span className="text-ember">·</span> {m.n}</div>
+                <div className="text-xs text-ink-soft uppercase tracking-widest mt-1">{m.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -114,38 +98,51 @@ function Hero() {
   );
 }
 
-function Range() {
-  const rotations = ["rotate-[-2deg]", "rotate-[1deg]", "rotate-[-1deg]", "rotate-[2deg]", "rotate-[-1.5deg]", "rotate-[1.5deg]", "rotate-[-2deg]"];
+function TrustStrip() {
+  const items = ["Single Origin", "Family Farmed", "Naturally Gluten-Free", "Traceable", "Highland Grown", "Small Batch"];
   return (
-    <section id="range" className="bg-leaf text-sun border-b-2 border-soot">
-      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-36">
-        <div className="grid lg:grid-cols-12 gap-8 mb-14 items-end">
+    <section className="border-b border-line bg-canvas">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+        {items.map((i) => (
+          <span key={i} className="text-xs font-medium tracking-[0.2em] uppercase text-ink-soft">{i}</span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Range() {
+  return (
+    <section id="range" className="bg-fresh-tint border-b border-line">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-32">
+        <div className="grid lg:grid-cols-12 gap-8 items-end mb-14">
           <div className="lg:col-span-8">
-            <span className="h-eyebrow mb-6 !bg-sun !text-soot">The Range · 7 titles</span>
-            <h2 className="h-display mt-6">FROM<br />FIELD<br /><span className="text-tomato">TO JAR.</span></h2>
+            <span className="h-eyebrow rule-eyebrow mb-6">The range</span>
+            <h2 className="h-display mt-4 text-ink" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
+              Seven products. One grain.
+            </h2>
           </div>
-          <p className="lg:col-span-4 text-sun/90 text-lg font-medium">
-            One field. One process. Seven ways to eat it. Tap any tin to open its page.
+          <p className="lg:col-span-4 lead">
+            Each product traces back to the same field — cleaned, milled or roasted with care.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((p, i) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((p) => (
             <Link
               key={p.slug}
               to="/products/$slug"
               params={{ slug: p.slug }}
-              className={`poster-card block overflow-hidden ${rotations[i]}`}
+              className="soft-card block overflow-hidden group"
             >
-              <div className={`relative aspect-square overflow-hidden border-b-2 border-soot ${i % 3 === 0 ? "bg-tomato" : i % 3 === 1 ? "bg-sun" : "bg-leaf"}`}>
-                <img src={p.img} alt={p.name} className="h-full w-full object-cover mix-blend-multiply" loading="lazy" />
-                <span className="absolute top-3 left-3 sticker !text-xs">N°0{i + 1}</span>
+              <div className="aspect-[4/3] overflow-hidden bg-fresh-tint">
+                <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
               </div>
-              <div className="p-5 text-soot bg-bone">
-                <span className="tape mb-3">{p.tag}</span>
-                <h3 className="font-display text-2xl leading-none mt-2">{p.name.toUpperCase()}</h3>
-                <p className="text-sm mt-3 leading-snug">{p.copy}</p>
-                <span className="mt-4 inline-flex items-center gap-1 font-display text-sm text-tomato">READ →</span>
+              <div className="p-6">
+                <span className="text-xs font-semibold tracking-[0.14em] uppercase text-ember">{p.tag}</span>
+                <h3 className="font-display font-semibold text-2xl mt-2 text-ink">{p.name}</h3>
+                <p className="text-sm text-ink-soft mt-3 leading-relaxed">{p.copy}</p>
+                <span className="btn-link mt-5">View product <span aria-hidden>→</span></span>
               </div>
             </Link>
           ))}
@@ -155,167 +152,150 @@ function Range() {
   );
 }
 
-function Why() {
+function Story() {
   const stats = [
-    { n: "01", stat: "0%", label: "GLUTEN. ZERO. NADA.", note: "Naturally gluten-free grain, safe for coeliacs and light on gut." },
-    { n: "02", stat: "100%", label: "SINGLE ORIGIN", note: "Grown, hulled and packed at our family farm in Arcturus, Zimbabwe." },
-    { n: "03", stat: "7", label: "PRODUCTS · ONE FIELD", note: "Groats, meal, flour, porridge, kasha, tea and dark buckwheat honey." },
+    { n: "0%", label: "Gluten", note: "Naturally gluten-free, safe for coeliac diets." },
+    { n: "100%", label: "Single origin", note: "Grown, hulled and packed on one family farm." },
+    { n: "7", label: "Products", note: "Groats, meal, flour, porridge, kasha, tea and honey." },
   ];
   return (
-    <section id="why" className="bg-sun border-b-2 border-soot">
-      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-36">
-        <span className="h-eyebrow mb-8">Why buckwheat?</span>
-        <h2 className="h-display mt-6 max-w-5xl">
-          A TINY SEED WITH<br /><span className="text-tomato">BIG ARGUMENTS.</span>
-        </h2>
-
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          {stats.map((s) => (
-            <div key={s.n} className="poster-card p-8">
-              <div className="w-16 h-16 rounded-full bg-tomato border-2 border-soot flex items-center justify-center font-display text-xl text-bone mb-6" style={{ boxShadow: "3px 3px 0 var(--soot)" }}>
-                {s.n}
-              </div>
-              <div className="font-display text-6xl leading-none">{s.stat}</div>
-              <div className="font-display text-lg mt-3">{s.label}</div>
-              <p className="mt-4 text-soot/80">{s.note}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BigQuote() {
-  return (
-    <section className="bg-tomato text-soot border-b-2 border-soot">
-      <div className="mx-auto max-w-[1200px] px-6 py-28 lg:py-40 text-center">
-        <span className="sticker !bg-sun mb-8 rotate-[-3deg]">★ WORD FROM THE FARM</span>
-        <blockquote className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] mt-6">
-          "SMALL GRAIN.<br />BIG APPETITE.<br /><span className="text-bone">NO NONSENSE."</span>
-        </blockquote>
-        <div className="mt-10 sticker !bg-soot !text-sun rotate-2">— THE STELLAR CREW</div>
-      </div>
-    </section>
-  );
-}
-
-function HowToEat() {
-  const uses = [
-    { emoji: "🥣", title: "PORRIDGE", note: "Hot bowl, 3 minutes, top with honey.", color: "bg-sun" },
-    { emoji: "🥞", title: "PANCAKES", note: "Buckwheat flour + milk + egg. Flip.", color: "bg-tomato" },
-    { emoji: "🍵", title: "TEA", note: "Steep, sip, repeat. Caffeine-free.", color: "bg-leaf" },
-    { emoji: "🫙", title: "HONEY", note: "Dark, malty, straight from the spoon.", color: "bg-sun" },
-    { emoji: "🥗", title: "SALADS", note: "Sprouted kasha over greens.", color: "bg-leaf" },
-    { emoji: "🍞", title: "BREAD", note: "Loaves, rotis, chapatis. All good.", color: "bg-tomato" },
-  ];
-  return (
-    <section id="howto" className="bg-bone border-b-2 border-soot">
-      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-36">
-        <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
-          <div>
-            <span className="h-eyebrow mb-6">How to eat it</span>
-            <h2 className="h-display mt-6">EAT IT<br /><span className="text-tomato">ANY WAY.</span></h2>
-          </div>
-          <p className="max-w-md text-lg">Buckwheat plays nice with sweet, savoury, hot, cold — even the kettle.</p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {uses.map((u, i) => (
-            <div key={u.title} className={`poster-card p-8 ${i % 2 === 0 ? "rotate-[-1deg]" : "rotate-[1deg]"}`}>
-              <div className={`w-20 h-20 rounded-full border-2 border-soot flex items-center justify-center text-4xl ${u.color}`} style={{ boxShadow: "3px 3px 0 var(--soot)" }}>
-                {u.emoji}
-              </div>
-              <h3 className="font-display text-3xl mt-6">{u.title}</h3>
-              <p className="mt-3 text-soot/80">{u.note}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Wholesale() {
-  return (
-    <section id="wholesale" className="bg-soot text-sun border-b-2 border-soot">
-      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:py-36 grid lg:grid-cols-12 gap-12 items-center">
-        <div className="lg:col-span-7">
-          <span className="h-eyebrow mb-8 !bg-sun !text-soot">Wholesale · Export · Private label</span>
-          <h2 className="h-display mt-6">LET'S<br />TALK<br /><span className="text-tomato">BULK.</span></h2>
-          <p className="mt-8 max-w-xl text-lg text-sun/85">
-            Bakeries, distributors, hotels, export partners — we pack from 5&nbsp;kg sacks to 25&nbsp;kg. Single-origin, fully traceable, straight from Arcturus.
+    <section id="story" className="border-b border-line">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="lg:col-span-6">
+          <span className="h-eyebrow rule-eyebrow mb-6">The story</span>
+          <h2 className="h-sub mt-6 text-ink">
+            A grain built for the way we eat now.
+          </h2>
+          <p className="lead mt-6">
+            Buckwheat is not a wheat — it is a resilient seed that thrives at altitude, needs almost nothing to grow, and gives back a complete plant protein with the fibre and minerals modern diets are missing.
           </p>
+          <a href="#wholesale" className="btn-ghost mt-8">Read the full story</a>
+        </div>
+        <div className="lg:col-span-6 lg:pl-8">
+          <div className="divide-y divide-line border-y border-line">
+            {stats.map((s) => (
+              <div key={s.label} className="py-8 grid grid-cols-[auto_1fr] gap-6 items-baseline">
+                <div className="font-display font-bold text-5xl lg:text-6xl text-ink leading-none">
+                  {s.n}
+                </div>
+                <div>
+                  <div className="text-xs uppercase tracking-[0.14em] text-ember font-semibold">{s.label}</div>
+                  <p className="text-ink-soft mt-2">{s.note}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WholesaleSlab() {
+  return (
+    <section id="wholesale" className="slab border-b border-line">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="lg:col-span-7">
+          <span className="h-eyebrow rule-eyebrow mb-6" style={{ color: "var(--ember)" }}>Wholesale</span>
+          <h2 className="h-display mt-6 text-canvas">
+            Built for kitchens, retailers &amp; exporters.
+          </h2>
+        </div>
+        <div className="lg:col-span-5">
+          <p className="text-lg leading-relaxed text-canvas/85">
+            We pack from 500&nbsp;g retail to 25&nbsp;kg sacks. Single-origin, fully traceable, packed and shipped from Arcturus.
+          </p>
+          <ul className="mt-8 space-y-3">
+            {["Bulk packs 5–25 kg", "Private label available", "Export documentation ready"].map((line) => (
+              <li key={line} className="flex items-center gap-3 text-canvas/90">
+                <span className="w-1.5 h-1.5 rounded-full bg-ember" aria-hidden />
+                {line}
+              </li>
+            ))}
+          </ul>
           <a
             href="mailto:stellarfoods25@gmail.com?subject=Wholesale%20enquiry"
-            className="chunky-btn !bg-sun !text-soot mt-10"
+            className="btn-primary mt-10"
+            style={{ background: "var(--canvas)", color: "var(--ink)", borderColor: "var(--canvas)" }}
           >
-            EMAIL THE FARM →
+            Start a conversation <span aria-hidden>→</span>
           </a>
-        </div>
-        <div className="lg:col-span-5 space-y-4">
-          <ContactRow label="ADDRESS" value="290 Mt. Olympus, Arcturus, ZW" />
-          <ContactRow label="PHONE" value="+263 71 923 2075" href="tel:+263719232075" />
-          <ContactRow label="EMAIL" value="stellarfoods25@gmail.com" href="mailto:stellarfoods25@gmail.com" />
-          <ContactRow label="REG. NO." value="Stellar Seeds (Pvt) Ltd · 4395/2024" />
         </div>
       </div>
     </section>
   );
 }
 
-function ContactRow({ label, value, href }: { label: string; value: string; href?: string }) {
-  const inner = href ? (
-    <a href={href} className="hover:text-tomato transition-colors">{value}</a>
+function Contact() {
+  return (
+    <section id="contact" className="border-b border-line">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-28 grid lg:grid-cols-12 gap-12 items-start">
+        <div className="lg:col-span-5">
+          <span className="h-eyebrow rule-eyebrow mb-6">Get in touch</span>
+          <h2 className="h-sub mt-6 text-ink">Talk to us.</h2>
+          <p className="lead mt-4">For orders, wholesale, private label or a farm visit — we reply within a working day.</p>
+        </div>
+        <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
+          <ContactCard label="Email" value="stellarfoods25@gmail.com" href="mailto:stellarfoods25@gmail.com" />
+          <ContactCard label="Phone" value="+263 71 923 2075" href="tel:+263719232075" />
+          <ContactCard label="Farm" value="290 Mt. Olympus, Arcturus, ZW" />
+          <ContactCard label="Registration" value="Stellar Seeds (Pvt) Ltd" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactCard({ label, value, href }: { label: string; value: string; href?: string }) {
+  const body = href ? (
+    <a href={href} className="inline-flex items-center gap-2 hover:text-ember transition-colors">
+      {value} <span aria-hidden className="text-ember">→</span>
+    </a>
   ) : (
     value
   );
   return (
-    <div className="bg-sun text-soot border-2 border-soot rounded-2xl px-5 py-4 flex items-center justify-between gap-4" style={{ boxShadow: "4px 4px 0 var(--tomato)" }}>
-      <span className="font-display text-xs tracking-wider">{label}</span>
-      <span className="font-display text-lg text-right">{inner}</span>
+    <div className="soft-card p-6">
+      <div className="text-xs uppercase tracking-[0.14em] text-ember font-semibold">{label}</div>
+      <div className="mt-2 font-display font-semibold text-lg text-ink">{body}</div>
     </div>
   );
 }
 
 function Footer() {
-  const text = "★ STAY LOUD ★ EAT WHOLE ★ BUY DIRECT ★ ";
   return (
-    <footer className="bg-leaf text-sun">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 grid md:grid-cols-3 gap-10">
-        <div>
-          <div className="font-display text-4xl">STELLAR<span className="text-tomato">★</span>FOODS</div>
-          <p className="mt-4 text-sun/80 max-w-xs">Buckwheat goodness from the Zimbabwean highlands, since 2024.</p>
+    <footer className="bg-canvas">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-16 grid md:grid-cols-4 gap-10">
+        <div className="md:col-span-2">
+          <div className="font-display font-bold text-2xl text-ink">Stellar<span className="text-ember">.</span></div>
+          <p className="mt-4 text-ink-soft max-w-sm">Highland buckwheat from Zimbabwe. Seven products, one field, since 2024.</p>
         </div>
         <div>
-          <div className="font-display text-sm tracking-widest text-sun/70 mb-4">SHOP</div>
+          <div className="text-xs uppercase tracking-[0.14em] text-ink-soft mb-4">Shop</div>
           <ul className="space-y-2">
             {products.slice(0, 4).map((p) => (
               <li key={p.slug}>
-                <Link to="/products/$slug" params={{ slug: p.slug }} className="hover:text-tomato font-display">
-                  {p.name.toUpperCase()}
+                <Link to="/products/$slug" params={{ slug: p.slug }} className="text-ink hover:text-ember transition-colors">
+                  {p.name}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <div className="font-display text-sm tracking-widest text-sun/70 mb-4">FIND US</div>
-          <p className="font-display">290 MT. OLYMPUS</p>
-          <p className="font-display">ARCTURUS, ZW</p>
-          <p className="mt-3">stellarfoods25@gmail.com</p>
+          <div className="text-xs uppercase tracking-[0.14em] text-ink-soft mb-4">Company</div>
+          <ul className="space-y-2 text-ink">
+            <li><a href="#story" className="hover:text-ember transition-colors">Our story</a></li>
+            <li><a href="#wholesale" className="hover:text-ember transition-colors">Wholesale</a></li>
+            <li><a href="#contact" className="hover:text-ember transition-colors">Contact</a></li>
+          </ul>
         </div>
       </div>
-      <div className="bg-soot text-sun py-3 overflow-hidden border-t-2 border-soot">
-        <div className="marquee-track font-display text-sm tracking-wider">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span key={i}>{text}</span>
-          ))}
+      <div className="border-t border-line">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-6 flex flex-wrap items-center justify-between gap-3 text-xs text-ink-soft">
+          <span>© {new Date().getFullYear()} Stellar Seeds (Pvt) Ltd</span>
+          <span>Product of Zimbabwe</span>
         </div>
-      </div>
-      <div className="mx-auto max-w-[1400px] px-6 py-6 text-xs text-sun/70 flex justify-between">
-        <span>© {new Date().getFullYear()} Stellar Seeds (Pvt) Ltd</span>
-        <span>PRODUCT OF ZIMBABWE</span>
       </div>
     </footer>
   );
