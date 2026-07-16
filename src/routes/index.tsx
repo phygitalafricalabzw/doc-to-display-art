@@ -36,7 +36,7 @@ function TopBar() {
     <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur border-b border-line">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 h-16 flex items-center justify-between">
         <Link to="/" className="font-display font-bold text-xl tracking-tight text-ink">
-          Stellar<span className="text-ember">.</span>
+          Stellar<span className="text-ember"> Foods.</span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-ink-soft">
           <a href="#range" className="hover:text-ink transition-colors">Range</a>
@@ -267,7 +267,7 @@ function Footer() {
     <footer className="bg-canvas">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-16 grid md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
-          <div className="font-display font-bold text-2xl text-ink">Stellar<span className="text-ember">.</span></div>
+          <div className="font-display font-bold text-2xl text-ink">Stellar<span className="text-ember">&nbsp;Foods.</span></div>
           <p className="mt-4 text-ink-soft max-w-sm">Highland buckwheat from Zimbabwe. Ten products, one field, since 2024.</p>
         </div>
         <div>
