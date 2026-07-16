@@ -5,10 +5,10 @@ import { products } from "@/data/products";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Stellar Foods — Highland Buckwheat, Done Properly" },
+      { title: "Stellar Foods — Zimbabwean Buckwheat, Done Properly" },
       { name: "description", content: "Single-origin buckwheat from the Zimbabwean highlands. Ten products — seed, groats, kasha, porridge, meal, meal blend, flour, tea, honey and peanut butter — grown, milled and packed on one family farm." },
-      { property: "og:title", content: "Stellar Foods — Highland Buckwheat" },
-      { property: "og:description", content: "Single-origin buckwheat from the Zimbabwean highlands." },
+      { property: "og:title", content: "Stellar Foods — Zimbabwean Buckwheat, Done Properly" },
+      { property: "og:description", content: "Single-origin buckwheat from the Zimbabwean highlands. Ten products — seed, groats, kasha, porridge, meal, meal blend, flour, tea, honey and peanut butter — grown, milled and packed on one family farm." },
       { property: "og:image", content: heroBowl },
       { name: "twitter:image", content: heroBowl },
     ],

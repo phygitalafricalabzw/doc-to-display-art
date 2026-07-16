@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Stellar Foods — Zimbabwean Buckwheat, Done Properly" },
+      { name: "description", content: "Single-origin buckwheat from the Zimbabwean highlands. Ten products — seed, groats, kasha, porridge, meal, meal blend, flour, tea, honey and peanut butter — grown, milled and packed on one family farm." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Stellar Foods — Zimbabwean Buckwheat, Done Properly" },
+      { property: "og:description", content: "Single-origin buckwheat from the Zimbabwean highlands. Ten products — seed, groats, kasha, porridge, meal, meal blend, flour, tea, honey and peanut butter — grown, milled and packed on one family farm." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Stellar Foods — Zimbabwean Buckwheat, Done Properly" },
+      { name: "twitter:description", content: "Single-origin buckwheat from the Zimbabwean highlands. Ten products — seed, groats, kasha, porridge, meal, meal blend, flour, tea, honey and peanut butter — grown, milled and packed on one family farm." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d400ddd6-128a-4734-b060-5054132b2505/id-preview-19542f20--e8231d67-a3ba-4991-99c0-48262c237068.lovable.app-1784195858688.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d400ddd6-128a-4734-b060-5054132b2505/id-preview-19542f20--e8231d67-a3ba-4991-99c0-48262c237068.lovable.app-1784195858688.png" },
     ],
     links: [
       {
