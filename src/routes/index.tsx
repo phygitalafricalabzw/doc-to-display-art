@@ -55,7 +55,7 @@ function Hero() {
     <section className="border-b border-line">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-20 lg:py-28 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         <div className="lg:col-span-7">
-          <span className="h-eyebrow rule-eyebrow mb-8">Highland Buckwheat · Est. 2024</span>
+          <span className="h-eyebrow rule-eyebrow mb-8">STELLAR FOODS · EST. 2024</span>
           <h1 className="h-display mt-6 text-ink">
             Buckwheat,<br />
             done{" "}
