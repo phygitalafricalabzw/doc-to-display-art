@@ -1,37 +1,39 @@
 ## Goal
-Produce a truly self-contained static export of the Stellar Foods site — every route, every image, every stylesheet and script — that opens correctly when unzipped locally (VS Code Live Server, double-clicking `index.html`) and when pushed to GitHub Pages, with zero missing links or 404s.
+Verify that `stellar-foods-static-v2.zip` (in `/mnt/documents/`) is fully self-contained: every `href`, `src`, `<link>`, `<script>`, and CSS `url(...)` in every HTML and CSS file resolves to a real file inside the archive. Produce a human-readable report listing anything missing.
 
-## Why the previous export was incomplete
-The last export snapshotted the Vite dev server, which serves CSS/JS as on-the-fly modules and leaves many asset URLs pointing at dev-only paths (`/src/...`, `/__l5e/...`, `/_build/...`). Opened from disk or on Pages, those URLs 404.
+## Steps
 
-## New approach: real production build + static prerender
-1. **Run a production build** (`bun run build`) so Vite emits hashed, self-contained CSS/JS bundles in the output directory.
-2. **Start the built server locally** and use Playwright to visit every route (`/` + 10 product pages), saving the fully rendered HTML.
-3. **Rewrite every asset URL to relative paths**:
-   - `/__l5e/assets-v1/...` product images → downloaded into `assets/images/` and rewritten.
-   - `/assets/*` (hashed JS/CSS from the build) → copied into the export and rewritten to relative paths (`./assets/...`, `../assets/...` from product subpages).
-   - Any `<link rel="modulepreload">`, `<script src>`, `<link rel="stylesheet">`, `<img src>`, and inline `url(...)` in CSS.
-4. **Emit clean folder structure** so URLs work without a server:
-   ```text
-   site/
-     index.html
-     404.html
-     .nojekyll
-     README.md
-     assets/            (hashed JS/CSS/fonts from Vite build)
-     images/            (all product + hero images)
-     products/
-       buckwheat-seed/index.html
-       buckwheat-groats/index.html
-       ... (all 10)
-   ```
-5. **Verify before delivery**: for each of the 11 HTML files, parse it and confirm every `src`/`href`/`url()` resolves to a file that exists in the export. Fail the build if any reference is missing.
-6. **Visual QA**: open `index.html` and 2 product pages from disk via `file://` in Playwright and screenshot each to confirm styling and images render with no server running.
-7. **Package** as `stellar-foods-static-v2.zip` in `/mnt/documents/` and include a short `README.md` with GitHub Pages instructions (push to `main`, enable Pages from root).
+1. **Unpack** the latest zip to a temp working directory (`/tmp/integrity/site/`).
+
+2. **Enumerate files**: walk the extracted tree and build a set of every real file path (normalized, case-sensitive).
+
+3. **Parse every HTML file** (`index.html`, `404.html`, `products/*/index.html`) with BeautifulSoup and collect references from:
+   - `<a href>` (skip `mailto:`, `tel:`, external `http(s)://`, pure `#anchor`)
+   - `<link href>` (stylesheets, icons, manifest, modulepreload)
+   - `<script src>`
+   - `<img src>` and `<img srcset>`
+   - `<source src>` / `<source srcset>`
+   - `<video>`, `<audio>`, `<iframe>` `src`
+   - inline `style="... url(...) ..."`
+   - `<meta property="og:image">` / `twitter:image` (flag absolute CDN URLs as "external, not bundled")
+
+4. **Parse every CSS file** in `assets/` and extract `url(...)` references (fonts, background images), resolving relative to the CSS file's folder.
+
+5. **Resolve each reference** relative to its source file, strip query/hash, and check membership in the file set. Bucket results as:
+   - ✅ resolved
+   - ❌ missing (target file absent)
+   - ⚠️ external (http/https/data:) — reported separately, not treated as broken
+   - 🔗 in-page anchor only — ignored
+
+6. **Cross-check hash links**: for any `href="../index.html#story"`-style link, confirm the target file exists AND the fragment id exists in that HTML.
+
+7. **Write the report** to `/mnt/documents/stellar-foods-static-integrity-report.md` with:
+   - Summary: files scanned, references checked, counts per bucket
+   - Table of every ❌ missing reference: source file → broken URL → resolved path
+   - Table of ⚠️ external references (so you can decide if any should be bundled)
+   - Notes on any orphan files in `images/` or `assets/` never referenced
+
+8. **Emit the artifact tag** for the report and print the top-level counts in the reply.
 
 ## Deliverable
-`stellar-foods-static-v2.zip` — opens correctly from `file://`, VS Code Live Server, and GitHub Pages, with all 11 pages, all 10 product images, hero image, fonts, CSS and JS intact and no broken links.
-
-## Notes
-- No design, copy, or source-code changes.
-- If the production build surfaces any TanStack Start SSR issue, I'll fall back to prerendering against the dev server but with the stricter asset-rewrite + verification pass above, so the output is still fully self-contained.
+`stellar-foods-static-integrity-report.md` in `/mnt/documents/`, plus a one-line summary of pass/fail in chat. No changes to the zip itself — this is a read-only audit. If any ❌ items are found, next step (separate turn) would be to rebuild the export fixing them.
