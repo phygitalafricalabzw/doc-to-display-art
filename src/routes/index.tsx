@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Stellar Foods — Highland Buckwheat, Done Properly" },
-      { name: "description", content: "Single-origin buckwheat from the Zimbabwean highlands. Seven products — groats, flour, porridge, kasha, tea, honey and meal — grown, milled and packed on one family farm." },
+      { name: "description", content: "Single-origin buckwheat from the Zimbabwean highlands. Ten products — seed, groats, kasha, porridge, meal, meal blend, flour, tea, honey and peanut butter — grown, milled and packed on one family farm." },
       { property: "og:title", content: "Stellar Foods — Highland Buckwheat" },
       { property: "og:description", content: "Single-origin buckwheat from the Zimbabwean highlands." },
       { property: "og:image", content: heroBowl },
@@ -68,7 +68,7 @@ function Hero() {
             .
           </h1>
           <p className="lead mt-8 max-w-xl">
-            Single-origin buckwheat grown, milled and packed on a family farm in the Zimbabwean highlands. Seven honest products from one field — nothing added, nothing hidden.
+            Single-origin buckwheat grown, milled and packed on a family farm in the Zimbabwean highlands. Ten honest products from one family farm — nothing added, nothing hidden.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <a href="#range" className="btn-primary">Explore the range <span aria-hidden>→</span></a>
@@ -119,7 +119,7 @@ function Range() {
           <div className="lg:col-span-8">
             <span className="h-eyebrow rule-eyebrow mb-6">The range</span>
             <h2 className="h-display mt-4 text-ink" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
-              Seven products. One grain.
+              Ten products. One field.
             </h2>
           </div>
           <p className="lg:col-span-4 lead">
@@ -268,7 +268,7 @@ function Footer() {
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-16 grid md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
           <div className="font-display font-bold text-2xl text-ink">Stellar<span className="text-ember">.</span></div>
-          <p className="mt-4 text-ink-soft max-w-sm">Highland buckwheat from Zimbabwe. Seven products, one field, since 2024.</p>
+          <p className="mt-4 text-ink-soft max-w-sm">Highland buckwheat from Zimbabwe. Ten products, one field, since 2024.</p>
         </div>
         <div>
           <div className="text-xs uppercase tracking-[0.14em] text-ink-soft mb-4">Shop</div>
