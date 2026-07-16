@@ -82,9 +82,9 @@ function Hero() {
           </div>
           <div className="mt-6 grid grid-cols-3 divide-x divide-line border-y border-line">
             {[
-              { n: "7", label: "Products" },
+              { n: "10+", label: "Products" },
               { n: "100%", label: "Natural" },
-              { n: "ZW", label: "Highlands" },
+              { n: "ZW", label: "ZIMBABWE" },
             ].map((m) => (
               <div key={m.label} className="py-4 px-3 text-center">
                 <div className="font-display text-2xl text-ink"><span className="text-ember">·</span> {m.n}</div>
@@ -99,7 +99,7 @@ function Hero() {
 }
 
 function TrustStrip() {
-  const items = ["Single Origin", "Family Farmed", "Naturally Gluten-Free", "Traceable", "Highland Grown", "Small Batch"];
+  const items = ["Single Origin", "Family Farmed", "Naturally Gluten-Free", "Traceable", "ZIMBABWE GROWN", "Small Batch"];
   return (
     <section className="border-b border-line bg-canvas">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
@@ -156,7 +156,7 @@ function Story() {
   const stats = [
     { n: "0%", label: "Gluten", note: "Naturally gluten-free, safe for coeliac diets." },
     { n: "100%", label: "Single origin", note: "Grown, hulled and packed on one family farm." },
-    { n: "7", label: "Products", note: "Groats, meal, flour, porridge, kasha, tea and honey." },
+    { n: "10+", label: "Products", note: "Groats, meal, flour, porridge, kasha, tea and honey." },
   ];
   return (
     <section id="story" className="border-b border-line">
@@ -268,7 +268,7 @@ function Footer() {
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-16 grid md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
           <div className="font-display font-bold text-2xl text-ink">Stellar<span className="text-ember">&nbsp;Foods.</span></div>
-          <p className="mt-4 text-ink-soft max-w-sm">Highland buckwheat from Zimbabwe. Ten products, one field, since 2024.</p>
+          <p className="mt-4 text-ink-soft max-w-sm">Buckwheat from Zimbabwe. 10+ products , one field, since 2024.</p>
         </div>
         <div>
           <div className="text-xs uppercase tracking-[0.14em] text-ink-soft mb-4">Shop</div>
