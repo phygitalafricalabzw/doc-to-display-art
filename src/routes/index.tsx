@@ -58,9 +58,9 @@ function Hero() {
           <span className="h-eyebrow rule-eyebrow mb-8">STELLAR FOODS · EST. 2024</span>
           <h1 className="h-display mt-6 text-ink">
             Buckwheat,<br />
-            done{" "}
+            our{" "}
             <span className="relative inline-block">
-              properly
+              Superfood
               <svg className="absolute -bottom-2 left-0 w-full" height="14" viewBox="0 0 300 14" fill="none" preserveAspectRatio="none">
                 <path d="M2 8 Q 75 2, 150 7 T 298 6" stroke="var(--ember)" strokeWidth="4" strokeLinecap="round" fill="none" />
               </svg>
