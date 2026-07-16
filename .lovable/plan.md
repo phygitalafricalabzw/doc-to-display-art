@@ -1,22 +1,37 @@
 ## Goal
-Produce a static export of the Stellar Foods site (home + 10 product pages) that can be pushed to a GitHub repo and served by GitHub Pages, delivered as a downloadable zip.
+Produce a truly self-contained static export of the Stellar Foods site — every route, every image, every stylesheet and script — that opens correctly when unzipped locally (VS Code Live Server, double-clicking `index.html`) and when pushed to GitHub Pages, with zero missing links or 404s.
 
-## Approach
-TanStack Start supports static prerendering. I'll enable prerender for every route, run a production static build, then package the output as a zip with an `index.html` at the root.
+## Why the previous export was incomplete
+The last export snapshotted the Vite dev server, which serves CSS/JS as on-the-fly modules and leaves many asset URLs pointing at dev-only paths (`/src/...`, `/__l5e/...`, `/_build/...`). Opened from disk or on Pages, those URLs 404.
 
-### Steps
-1. **Enable prerendering** in `vite.config.ts` via the `@lovable.dev/vite-tanstack-config` `nitro`/`prerender` options — enumerate `/` and every `/products/{slug}` route (10 slugs from `src/data/products.ts`).
-2. **Add a static preset** so nitro emits plain HTML/JS/CSS (no worker), output directory `dist/`.
-3. **Add `.nojekyll`** to the output so GitHub Pages serves `_` prefixed asset folders.
-4. **Add `404.html`** (copy of the rendered not-found page) so GitHub Pages handles unknown URLs gracefully.
-5. **Run the build** (`bun run build` with the static target) and verify `dist/index.html` plus `dist/products/{slug}/index.html` exist for all 10 products.
-6. **Zip the output** to `/mnt/documents/stellar-foods-static.zip` and surface it as an artifact for download.
-7. **Include a short `README.md`** in the zip explaining how to push to GitHub and enable Pages (root, `main` branch).
+## New approach: real production build + static prerender
+1. **Run a production build** (`bun run build`) so Vite emits hashed, self-contained CSS/JS bundles in the output directory.
+2. **Start the built server locally** and use Playwright to visit every route (`/` + 10 product pages), saving the fully rendered HTML.
+3. **Rewrite every asset URL to relative paths**:
+   - `/__l5e/assets-v1/...` product images → downloaded into `assets/images/` and rewritten.
+   - `/assets/*` (hashed JS/CSS from the build) → copied into the export and rewritten to relative paths (`./assets/...`, `../assets/...` from product subpages).
+   - Any `<link rel="modulepreload">`, `<script src>`, `<link rel="stylesheet">`, `<img src>`, and inline `url(...)` in CSS.
+4. **Emit clean folder structure** so URLs work without a server:
+   ```text
+   site/
+     index.html
+     404.html
+     .nojekyll
+     README.md
+     assets/            (hashed JS/CSS/fonts from Vite build)
+     images/            (all product + hero images)
+     products/
+       buckwheat-seed/index.html
+       buckwheat-groats/index.html
+       ... (all 10)
+   ```
+5. **Verify before delivery**: for each of the 11 HTML files, parse it and confirm every `src`/`href`/`url()` resolves to a file that exists in the export. Fail the build if any reference is missing.
+6. **Visual QA**: open `index.html` and 2 product pages from disk via `file://` in Playwright and screenshot each to confirm styling and images render with no server running.
+7. **Package** as `stellar-foods-static-v2.zip` in `/mnt/documents/` and include a short `README.md` with GitHub Pages instructions (push to `main`, enable Pages from root).
 
-### Deliverable
-- `stellar-foods-static.zip` containing `index.html`, per-product folders, hashed JS/CSS assets, product images, `.nojekyll`, `404.html`, and `README.md`.
+## Deliverable
+`stellar-foods-static-v2.zip` — opens correctly from `file://`, VS Code Live Server, and GitHub Pages, with all 11 pages, all 10 product images, hero image, fonts, CSS and JS intact and no broken links.
 
-### Notes
-- No design or copy changes.
-- Product images are already CDN-hosted, so they'll load fine from any origin.
-- If prerender can't statically resolve a route, I'll fall back to rendering each URL via a headless fetch against the local production server and saving the HTML.
+## Notes
+- No design, copy, or source-code changes.
+- If the production build surfaces any TanStack Start SSR issue, I'll fall back to prerendering against the dev server but with the stricter asset-rewrite + verification pass above, so the output is still fully self-contained.
