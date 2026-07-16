@@ -185,7 +185,7 @@ function ProductPage() {
               <span className="h-eyebrow rule-eyebrow mb-6">Keep exploring</span>
               <h2 className="h-sub mt-6">More from the range.</h2>
             </div>
-            <Link to="/" hash="range" className="btn-link">See all seven <span aria-hidden>→</span></Link>
+            <Link to="/" hash="range" className="btn-link">See all ten <span aria-hidden>→</span></Link>
           </div>
           <div className="grid sm:grid-cols-3 gap-6">
             {related.map((p) => (
