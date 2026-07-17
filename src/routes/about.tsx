@@ -297,7 +297,7 @@ function AboutPage() {
         <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-24 lg:py-32">
           <div className="mb-12">
             <span className="h-eyebrow rule-eyebrow mb-6">From the farm</span>
-            <h2 className="h-sub mt-6 text-ink">A look inside Arcturus.</h2>
+            <h2 className="h-sub mt-6 text-ink">A look inside Valley Green products by Stellar Foods</h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {gallery.map((img, i) => (
