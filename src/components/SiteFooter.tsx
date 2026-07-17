@@ -1,13 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { products } from "@/data/products";
+import logoAsset from "@/assets/stellar-foods-logo.png.asset.json";
 
 export function SiteFooter() {
   return (
     <footer className="bg-canvas border-t border-line">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-16 grid md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
-          <div className="font-display font-bold text-2xl text-ink">
-            Stellar<span className="text-ember">&nbsp;Foods.</span>
+          <div className="flex items-center gap-3">
+            <img src={logoAsset.url} alt="Stellar Foods" className="h-12 w-auto" />
+            <div className="font-display font-bold text-2xl text-ink">
+              Stellar<span className="text-ember">&nbsp;Foods.</span>
+            </div>
           </div>
           <p className="mt-4 text-ink-soft max-w-sm">
             Buckwheat from Zimbabwe. 10+ products , one field, since 2024.

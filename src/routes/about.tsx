@@ -1,6 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Leaf, Users, Lightbulb, Award, HeartHandshake } from "lucide-react";
 import heroBowl from "@/assets/hero-bowl.jpg";
+import flourFamily from "@/assets/about/flour-family.png.asset.json";
+import flourBaking from "@/assets/about/flour-baking.png.asset.json";
+import groatsDish from "@/assets/about/groats-dish.png.asset.json";
+import honey from "@/assets/about/honey.png.asset.json";
+import tea from "@/assets/about/tea.png.asset.json";
+import peanutButter from "@/assets/about/peanut-butter.png.asset.json";
+
+const gallery = [
+  { src: flourFamily.url, alt: "Family sharing a meal with Stellar Foods Buckwheat Flour", wide: true },
+  { src: flourBaking.url, alt: "Home baker mixing Stellar Foods Buckwheat Flour", wide: false },
+  { src: groatsDish.url, alt: "Prepared buckwheat groats served on a wooden table", wide: false },
+  { src: honey.url, alt: "Stellar Foods buckwheat honey jar nestled in the crop", wide: false },
+  { src: tea.url, alt: "Man enjoying Stellar Foods buckwheat herbal tea", wide: false },
+  { src: peanutButter.url, alt: "Stellar Foods peanut butter in a swirl of creamy spread", wide: true },
+];
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -190,14 +205,14 @@ function AboutPage() {
             <h2 className="h-sub mt-6 text-ink">A look inside Arcturus.</h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
+            {gallery.map((img, i) => (
               <div
                 key={i}
-                className={`rounded-2xl bg-fresh-tint border border-line flex items-center justify-center text-ink-soft text-xs uppercase tracking-[0.14em] ${
-                  i === 1 || i === 6 ? "col-span-2 aspect-[16/10]" : "aspect-square"
+                className={`rounded-2xl overflow-hidden bg-fresh-tint border border-line ${
+                  img.wide ? "col-span-2 aspect-[16/10]" : "aspect-square"
                 }`}
               >
-                Image coming soon
+                <img src={img.src} alt={img.alt} loading="lazy" className="h-full w-full object-cover" />
               </div>
             ))}
           </div>
