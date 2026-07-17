@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Leaf, Users, Lightbulb, Award, HeartHandshake } from "lucide-react";
-import heroBowl from "@/assets/hero-bowl.jpg";
+import { useEffect, useRef, useState } from "react";
+import { Leaf, Users, Lightbulb, Award, HeartHandshake, ChevronLeft, ChevronRight } from "lucide-react";
 import flourFamily from "@/assets/about/flour-family.png.asset.json";
 import flourBaking from "@/assets/about/flour-baking.png.asset.json";
 import groatsDish from "@/assets/about/groats-dish.png.asset.json";
@@ -16,6 +16,103 @@ const gallery = [
   { src: tea.url, alt: "Man enjoying Stellar Foods buckwheat herbal tea", wide: false },
   { src: peanutButter.url, alt: "Stellar Foods peanut butter in a swirl of creamy spread", wide: true },
 ];
+
+function HeroSlider({ images }: { images: { src: string; alt: string }[] }) {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const reducedMotion = useRef(false);
+
+  useEffect(() => {
+    reducedMotion.current =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  useEffect(() => {
+    if (paused || reducedMotion.current) return;
+    const id = window.setInterval(() => {
+      if (!document.hidden) setIndex((i) => (i + 1) % images.length);
+    }, 5000);
+    return () => window.clearInterval(id);
+  }, [paused, images.length]);
+
+  const go = (n: number) => setIndex((n + images.length) % images.length);
+  const next = () => go(index + 1);
+  const prev = () => go(index - 1);
+
+  return (
+    <div
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Stellar Foods gallery"
+      tabIndex={0}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
+      }}
+      onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+      onTouchEnd={(e) => {
+        if (touchStartX.current == null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX.current;
+        if (Math.abs(dx) > 40) (dx < 0 ? next : prev)();
+        touchStartX.current = null;
+      }}
+      className="relative rounded-3xl overflow-hidden bg-fresh-tint aspect-square lg:aspect-[4/5] outline-none focus-visible:ring-2 focus-visible:ring-ember"
+    >
+      {images.map((img, i) => (
+        <img
+          key={img.src}
+          src={img.src}
+          alt={img.alt}
+          loading={i === 0 ? "eager" : "lazy"}
+          aria-hidden={i !== index}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+            i === index ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+        />
+      ))}
+
+      <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => go(i)}
+            aria-label={`Show slide ${i + 1}`}
+            aria-current={i === index}
+            className={`h-2 rounded-full transition-all ${
+              i === index ? "w-6 bg-ember" : "w-2 bg-canvas/70 hover:bg-canvas"
+            }`}
+          />
+        ))}
+      </div>
+
+      <div className="absolute bottom-4 right-4 hidden sm:flex gap-2">
+        <button
+          type="button"
+          onClick={prev}
+          aria-label="Previous slide"
+          className="h-10 w-10 inline-flex items-center justify-center rounded-full bg-canvas/90 backdrop-blur border border-line text-ink hover:bg-canvas"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={next}
+          aria-label="Next slide"
+          className="h-10 w-10 inline-flex items-center justify-center rounded-full bg-canvas/90 backdrop-blur border border-line text-ink hover:bg-canvas"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -108,9 +205,7 @@ function AboutPage() {
             </p>
           </div>
           <div className="lg:col-span-5">
-            <div className="rounded-3xl overflow-hidden bg-fresh-tint aspect-square">
-              <img src={heroBowl} alt="Buckwheat grown in the Zimbabwean highlands" className="h-full w-full object-cover" />
-            </div>
+            <HeroSlider images={gallery} />
           </div>
         </div>
       </section>
