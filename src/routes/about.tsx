@@ -171,9 +171,9 @@ function AboutPage() {
           <div className="lg:col-span-7">
             <span className="h-eyebrow rule-eyebrow mb-8">About Stellar Foods</span>
             <h1 className="h-display mt-6 text-ink">
-              Nourishing food,{" "}
+              Super food,{" "}
               <span className="relative inline-block">
-                honestly grown
+                locally grown
                 <svg
                   className="absolute -bottom-2 left-0 w-full"
                   height="14"
