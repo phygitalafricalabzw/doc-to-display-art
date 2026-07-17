@@ -29,6 +29,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
+    <>
     <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur border-b border-line">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2 shrink-0" aria-label="Stellar Foods home">
@@ -75,10 +76,11 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
+    </header>
 
-      {/* Mobile panel */}
-      {open && (
-        <div className="md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-canvas border-t border-line overflow-y-auto">
+    {/* Mobile panel — sibling of header so backdrop-filter doesn't create a containing block */}
+    {open && (
+      <div className="md:hidden fixed inset-x-0 top-16 h-[calc(100dvh-4rem)] z-40 bg-canvas border-t border-line overflow-y-auto">
           <nav className="mx-auto max-w-[1280px] px-6 py-6 flex flex-col">
             {nav.map((item) => (
               <Link
@@ -109,6 +111,6 @@ export function SiteHeader() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
