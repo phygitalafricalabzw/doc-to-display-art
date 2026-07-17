@@ -1,27 +1,17 @@
-## Goal
+## Problem
 
-Replace the static square hero image on `/about` (currently `heroBowl`) with a responsive, auto-playing image slider that cycles through the six About gallery photos already imported at the top of `src/routes/about.tsx`.
+On mobile, tapping the hamburger toggles the icon (Menu ↔ X) but no menu appears. The panel div renders as `fixed inset-x-0 top-16 bottom-0` inside `<header>`, and the header uses `backdrop-blur`. `backdrop-filter` promotes the header to a containing block for `position: fixed` descendants, so `bottom-0` becomes the header's bottom (~64px), collapsing the panel to ~1px tall. Verified via Playwright: computed rect is `{y:64, w:390, h:1}`.
 
-## Changes
+## Fix
 
-**`src/routes/about.tsx`**
-- Remove the `heroBowl` import (no longer used on this page).
-- Extract the existing `gallery` array so the same six photos feed both the hero slider and the "From the farm" grid below (single source of truth).
-- Replace the hero's `<div className="rounded-3xl overflow-hidden bg-fresh-tint aspect-square">…</div>` block with a new inline `<HeroSlider images={gallery} />` component defined in the same file.
+**`src/components/SiteHeader.tsx`**
 
-**HeroSlider behavior**
-- Same rounded 3xl container, `aspect-square` on mobile, `aspect-[4/5]` on `lg` for a slightly taller editorial feel; images use `object-cover w-full h-full`.
-- Slides stacked absolutely; active slide fades in via `opacity` + `transition-opacity duration-700`. Non-active slides get `aria-hidden` and `pointer-events-none`.
-- Auto-advances every 5s using `setInterval` in a `useEffect`; pauses on hover/focus and when `document.hidden` (visibilitychange listener) to respect background tabs.
-- Respects `prefers-reduced-motion`: no auto-advance, no fade — just show current slide.
-- Prev / Next buttons: circular 40px buttons pinned bottom-right with `bg-canvas/90 backdrop-blur border border-line`, using `ChevronLeft` / `ChevronRight` from `lucide-react` (already used elsewhere). Hidden visually on very small screens (`hidden sm:flex`) but keyboard-accessible via dot nav.
-- Dot indicators: row of small pills centered along the bottom, active dot uses `bg-ember`, inactive `bg-canvas/60`. Each dot is a `<button>` with `aria-label={`Show slide ${i+1}`}` and `aria-current` on the active one.
-- Keyboard: left/right arrow keys advance when the slider region is focused (`tabIndex={0}`, `role="region"`, `aria-roledescription="carousel"`, `aria-label="Stellar Foods gallery"`).
-- Swipe: basic `onTouchStart` / `onTouchEnd` threshold (~40px) to advance on mobile.
-- Preloads next image via a hidden `<link rel="preload">`-equivalent (just render the next `<img>` with `loading="eager"` while others stay `loading="lazy"`).
+1. Move the mobile panel JSX out of the `<header>` element so it is no longer inside the `backdrop-blur` containing block. Return a fragment `<>...</>` with `<header>...</header>` and the panel as siblings.
+2. Replace `bottom-0` with an explicit viewport-height sizing that works regardless of containing block: `top-16 h-[calc(100dvh-4rem)]` (dvh handles mobile browser chrome correctly). Keep `fixed inset-x-0 z-40 bg-canvas border-t border-line overflow-y-auto`.
+3. Keep all existing behavior: `open` state, escape-on-route-change effect, body scroll lock, links, "Shop the range" / "Wholesale enquiry" CTAs.
 
-## Out of scope
+## Verification
 
-- No changes to the "From the farm" gallery grid below the fold.
-- No new dependencies; uses existing `lucide-react` icons and Tailwind tokens (`--ember`, `--fresh-tint`, `--line`, `--canvas`).
-- No changes to header, footer, or other routes.
+- Reload `/` and `/about` at 390×844, tap the hamburger, confirm the full-height panel overlays the page with all nav links visible and tappable.
+- Tap a link and confirm it navigates and the panel closes (existing effect on pathname change).
+- Confirm no visual regressions on `md+` (panel remains `md:hidden`).
