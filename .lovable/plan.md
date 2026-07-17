@@ -1,52 +1,37 @@
-## Problem
+## Scope
 
-In `stellar-foods-cpanel.zip`:
-- The `images/` folder was created but left empty.
-- All 10 product photos were saved under `__l5e/assets-v1/<uuid>/<file>.png` instead.
-- Every HTML file points at those `__l5e/...` paths. Some cPanel / static hosts (and casual FTP tools) hide or refuse to serve folders that start with an underscore or contain deeply nested UUID directories, which is why the images don't render for you.
-- Bonus bug spotted: the peanut butter route folder is `products/buckwheat-peanut-butter/` but the real product slug is `peanut-butter`, so that page was crawled as a 404 (2.8 KB stub) and its image is missing too.
+1. **Hamburger menu on all pages (mobile-first)**
+   - Extract the current `TopBar` from `src/routes/index.tsx` into a shared `src/components/SiteHeader.tsx` and a `SiteFooter.tsx` so every page uses the same chrome.
+   - Add a hamburger button visible on `<md` breakpoints (Lucide `Menu` / `X` icons). Tapping it opens a full-width slide-down panel with: Range, Story, About, Wholesale, Contact, and a "Shop the range" CTA.
+   - Fix mobile disappearance: the current nav uses `hidden md:flex` and the CTA button gets pushed off-screen at 390px. Replace with a proper mobile menu (always-visible hamburger under `md`, always-visible nav ≥`md`).
+   - Cross-page anchors (`#range`, `#story`, `#wholesale`, `#contact`) will use TanStack `Link` with `to="/"` + `hash` so they work from `/about` and product pages too.
 
-## Fix
+2. **Mount shared header/footer on every route**
+   - Use `src/routes/__root.tsx` to render `<SiteHeader />` above `<Outlet />` and `<SiteFooter />` below, so home, About, and all product pages share it. Remove the inline `TopBar`/`Footer` from `index.tsx` and product page to avoid duplicates.
 
-Rebuild the cPanel zip so all imagery lives in the flat `images/` folder promised in the upload guide.
+3. **About Us page — `src/routes/about.tsx`**
+   - Route: `/about`. Add head() metadata (title, description, og:title/description).
+   - Sections, using the existing "Bricolage + Inter, white / fresh-green / ember" design language:
+     - **Hero eyebrow + display headline**: "About Stellar Foods." with the intro paragraph ("forward-thinking food processing…").
+     - **Mission** — pull quote treatment with ember accent rule.
+     - **Vision** — one-line hero statement on a fresh-green slab.
+     - **Core Values** — 5-card grid (Sustainability, Community Development, Innovation, Quality, Customer Satisfaction) with Lucide icons.
+     - **Our Products / Health Benefits** — antioxidant / non-communicable disease copy in a two-column editorial block.
+     - **Image gallery** — placeholder grid ready for the user's uploads (see item 5 below); until images arrive, the grid renders empty tiles with an "Image coming soon" state so layout is locked in.
+     - CTA footer linking to `/#range` and the wholesale email.
 
-1. Fresh production build + local serve (same as before).
-2. Crawl the 11 real routes: `/`, `/products/buckwheat-seed`, `…groats`, `…kasha`, `instant-porridge`, `…meal`, `…meal-blend`, `…flour`, `…tea`, `…honey`, `peanut-butter` (correct slug), plus a synthetic 404.
-3. For every product image and the hero:
-   - Download once from the Lovable CDN.
-   - Save to `images/<original-filename>.png` (e.g. `images/Buckwheat_Seed.png`).
-   - Rewrite every `src`, `srcset`, `href`, `content="…png"`, and CSS `url(...)` reference from `__l5e/assets-v1/<uuid>/<file>` → `images/<file>` (using the correct relative prefix per page depth).
-4. Delete the `__l5e/` tree from the export entirely.
-5. Re-run the 284-reference integrity check; require 0 missing before packaging.
-6. Emit `stellar-foods-cpanel-v2.zip` in `/mnt/documents/` and surface it as an artifact.
+4. **Wire About into navigation**
+   - Add "About" link to header nav (desktop + mobile hamburger) and to the footer "Company" column.
 
-Structure after fix:
+5. **Images (deferred to your next upload)**
+   - Plan locks in the About-page gallery structure (3 landscape + 2 portrait slots in an asymmetric grid). Once you upload the About Us images in the next message, I'll drop them into `src/assets/about/`, wire them into the gallery, and add alt text.
 
-```text
-index.html
-404.html
-.htaccess
-README-UPLOAD.md
-assets/       ← hashed CSS + JS
-images/
-  hero-bowl.jpg
-  Buckwheat_Seed.png
-  Buckwheat_Groats.png
-  Buckwheat_Kasha.png
-  Buckwheat_Flour.png
-  Buckwheat_Meal.png
-  Buckwheat_Meal_Blend.png
-  Buckwheat_Peanut_Butter.png
-  Buckwheat_Honey.png
-  Buckwheat_Tea.png
-  Instant_Porridge.png
-products/
-  buckwheat-seed/index.html
-  … (9 more, including the corrected peanut-butter/index.html)
-```
+## Files touched
 
-## Notes
+- **New**: `src/components/SiteHeader.tsx`, `src/components/SiteFooter.tsx`, `src/routes/about.tsx`
+- **Edited**: `src/routes/__root.tsx` (mount header/footer), `src/routes/index.tsx` (remove inline TopBar/Footer, keep sections), `src/routes/products.$slug.tsx` (drop any duplicated chrome)
 
-- No source-code changes to the live site — this only affects the exported static bundle.
-- Existing `.htaccess`, README, and clean-URL behaviour are preserved.
-- Filenames keep their original casing (`Buckwheat_Seed.png`) so alt text and OG image URLs stay meaningful.
+## Out of scope
+
+- No design-system overhaul; About page reuses existing tokens (`--ember`, `--fresh-tint`, `--ink`, `.h-display`, `.soft-card`, `.slab`).
+- No changes to product data or the static cPanel export — I'll regenerate that only if you ask after About is live.

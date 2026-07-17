@@ -54,21 +54,6 @@ function ProductPage() {
 
   return (
     <div className="min-h-screen bg-canvas text-ink">
-      {/* Nav */}
-      <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur border-b border-line">
-        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 h-16 flex items-center justify-between">
-          <Link to="/" className="font-display font-bold text-xl tracking-tight text-ink">
-            Stellar<span className="text-ember">.</span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-8 text-sm text-ink-soft">
-            <Link to="/" hash="range" className="hover:text-ink transition-colors">Range</Link>
-            <Link to="/" hash="story" className="hover:text-ink transition-colors">Story</Link>
-            <Link to="/" hash="wholesale" className="hover:text-ink transition-colors">Wholesale</Link>
-          </nav>
-          <a href={wholesaleMail} className="btn-primary text-sm">Enquire</a>
-        </div>
-      </header>
-
       {/* Breadcrumb */}
       <div className="border-b border-line">
         <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-4 text-sm text-ink-soft flex items-center gap-2">
@@ -208,14 +193,6 @@ function ProductPage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-canvas">
-        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-10 flex flex-wrap items-center justify-between gap-4 border-t border-line">
-          <div className="font-display font-bold text-xl text-ink">Stellar<span className="text-ember">.</span></div>
-          <div className="text-xs text-ink-soft">© {new Date().getFullYear()} Stellar Seeds (Pvt) Ltd · Product of Zimbabwe</div>
-        </div>
-      </footer>
     </div>
   );
 }

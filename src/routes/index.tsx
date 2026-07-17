@@ -19,34 +19,13 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <TopBar />
       <Hero />
       <TrustStrip />
       <Range />
       <Story />
       <WholesaleSlab />
       <Contact />
-      <Footer />
     </div>
-  );
-}
-
-function TopBar() {
-  return (
-    <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur border-b border-line">
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 h-16 flex items-center justify-between">
-        <Link to="/" className="font-display font-bold text-xl tracking-tight text-ink">
-          Stellar<span className="text-ember"> Foods.</span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-8 text-sm text-ink-soft">
-          <a href="#range" className="hover:text-ink transition-colors">Range</a>
-          <a href="#story" className="hover:text-ink transition-colors">Story</a>
-          <a href="#wholesale" className="hover:text-ink transition-colors">Wholesale</a>
-          <a href="#contact" className="hover:text-ink transition-colors">Contact</a>
-        </nav>
-        <a href="#range" className="btn-primary text-sm">Shop the range</a>
-      </div>
-    </header>
   );
 }
 
@@ -262,41 +241,3 @@ function ContactCard({ label, value, href }: { label: string; value: string; hre
   );
 }
 
-function Footer() {
-  return (
-    <footer className="bg-canvas">
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-16 grid md:grid-cols-4 gap-10">
-        <div className="md:col-span-2">
-          <div className="font-display font-bold text-2xl text-ink">Stellar<span className="text-ember">&nbsp;Foods.</span></div>
-          <p className="mt-4 text-ink-soft max-w-sm">Buckwheat from Zimbabwe. 10+ products , one field, since 2024.</p>
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-[0.14em] text-ink-soft mb-4">Shop</div>
-          <ul className="space-y-2">
-            {products.slice(0, 4).map((p) => (
-              <li key={p.slug}>
-                <Link to="/products/$slug" params={{ slug: p.slug }} className="text-ink hover:text-ember transition-colors">
-                  {p.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-[0.14em] text-ink-soft mb-4">Company</div>
-          <ul className="space-y-2 text-ink">
-            <li><a href="#story" className="hover:text-ember transition-colors">Our story</a></li>
-            <li><a href="#wholesale" className="hover:text-ember transition-colors">Wholesale</a></li>
-            <li><a href="#contact" className="hover:text-ember transition-colors">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-line">
-        <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-6 flex flex-wrap items-center justify-between gap-3 text-xs text-ink-soft">
-          <span>© {new Date().getFullYear()} Stellar Seeds (Pvt) Ltd</span>
-          <span>Product of Zimbabwe</span>
-        </div>
-      </div>
-    </footer>
-  );
-}
