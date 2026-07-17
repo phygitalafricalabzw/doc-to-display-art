@@ -1,32 +1,27 @@
-## Scope
+## Goal
 
-1. **Upload images as Lovable Assets** (no binaries in repo) from `/mnt/user-uploads/`:
-   - `stellar_foods_logo.png` → `src/assets/stellar-foods-logo.png.asset.json`
-   - Six About gallery photos → `src/assets/about/*.png.asset.json`:
-     - `Stellar_Foods_Buckwheat_Flour.png` (family at breakfast)
-     - `Buckwheat_Flour-2.png` (woman baking)
-     - `Buckwheat_Groats-2.png` (groats + prepared dish)
-     - `Steallar_Foods_Buckwheat_Tea.png` (man drinking tea)
-     - `Stellar_Foods_Buckwheat_Honey.png` (honey jar in buckwheat field)
-     - `Stellar_Foods_Peanut_Butter.png` (peanut butter splash)
+Replace the static square hero image on `/about` (currently `heroBowl`) with a responsive, auto-playing image slider that cycles through the six About gallery photos already imported at the top of `src/routes/about.tsx`.
 
-2. **Logo in `SiteHeader.tsx`**
-   - Replace the wordmark-only brand link with `<img src={logo.url}>` + "Stellar Foods." wordmark alongside it. Logo sized ~36–40px tall, preserved aspect ratio. Same treatment inside the mobile hamburger panel header.
+## Changes
 
-3. **Logo in `SiteFooter.tsx`**
-   - Add logo above/next to the "Stellar Foods." brand block in the footer's first column.
+**`src/routes/about.tsx`**
+- Remove the `heroBowl` import (no longer used on this page).
+- Extract the existing `gallery` array so the same six photos feed both the hero slider and the "From the farm" grid below (single source of truth).
+- Replace the hero's `<div className="rounded-3xl overflow-hidden bg-fresh-tint aspect-square">…</div>` block with a new inline `<HeroSlider images={gallery} />` component defined in the same file.
 
-4. **About page gallery — `src/routes/about.tsx`**
-   - Replace the six "Image coming soon" placeholder tiles with the six uploaded photos, keeping the existing asymmetric grid (tiles 1 and 6 span 2 cols at `16/10`, tiles 2–5 are square).
-   - Map order: 1=Family/Flour bag (wide), 2=Woman baking, 3=Groats dish, 4=Honey jar, 5=Tea, 6=Peanut butter (wide).
-   - Each `<img>` gets `object-cover w-full h-full`, real alt text (e.g., "Family sharing a meal with Stellar Foods Buckwheat Flour"), and `loading="lazy"`.
-
-## Files touched
-
-- **New pointer files**: `src/assets/stellar-foods-logo.png.asset.json`, `src/assets/about/{flour-family,flour-baking,groats-dish,honey,tea,peanut-butter}.png.asset.json`
-- **Edited**: `src/components/SiteHeader.tsx`, `src/components/SiteFooter.tsx`, `src/routes/about.tsx`
+**HeroSlider behavior**
+- Same rounded 3xl container, `aspect-square` on mobile, `aspect-[4/5]` on `lg` for a slightly taller editorial feel; images use `object-cover w-full h-full`.
+- Slides stacked absolutely; active slide fades in via `opacity` + `transition-opacity duration-700`. Non-active slides get `aria-hidden` and `pointer-events-none`.
+- Auto-advances every 5s using `setInterval` in a `useEffect`; pauses on hover/focus and when `document.hidden` (visibilitychange listener) to respect background tabs.
+- Respects `prefers-reduced-motion`: no auto-advance, no fade — just show current slide.
+- Prev / Next buttons: circular 40px buttons pinned bottom-right with `bg-canvas/90 backdrop-blur border border-line`, using `ChevronLeft` / `ChevronRight` from `lucide-react` (already used elsewhere). Hidden visually on very small screens (`hidden sm:flex`) but keyboard-accessible via dot nav.
+- Dot indicators: row of small pills centered along the bottom, active dot uses `bg-ember`, inactive `bg-canvas/60`. Each dot is a `<button>` with `aria-label={`Show slide ${i+1}`}` and `aria-current` on the active one.
+- Keyboard: left/right arrow keys advance when the slider region is focused (`tabIndex={0}`, `role="region"`, `aria-roledescription="carousel"`, `aria-label="Stellar Foods gallery"`).
+- Swipe: basic `onTouchStart` / `onTouchEnd` threshold (~40px) to advance on mobile.
+- Preloads next image via a hidden `<link rel="preload">`-equivalent (just render the next `<img>` with `loading="eager"` while others stay `loading="lazy"`).
 
 ## Out of scope
 
-- No changes to product data, product pages, or the static cPanel export (can regenerate on request after this lands).
-- No re-theming; existing tokens (`--ember`, `--fresh-tint`, etc.) unchanged.
+- No changes to the "From the farm" gallery grid below the fold.
+- No new dependencies; uses existing `lucide-react` icons and Tailwind tokens (`--ember`, `--fresh-tint`, `--line`, `--canvas`).
+- No changes to header, footer, or other routes.
