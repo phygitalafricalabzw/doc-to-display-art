@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
+import logoAsset from "@/assets/stellar-foods-logo.png.asset.json";
 
 const nav = [
   { label: "Range", to: "/", hash: "range" },
@@ -30,8 +31,11 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur border-b border-line">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
-        <Link to="/" className="font-display font-bold text-xl tracking-tight text-ink shrink-0">
-          Stellar<span className="text-ember"> Foods.</span>
+        <Link to="/" className="flex items-center gap-2 shrink-0" aria-label="Stellar Foods home">
+          <img src={logoAsset.url} alt="" className="h-10 w-auto" />
+          <span className="font-display font-bold text-xl tracking-tight text-ink hidden sm:inline">
+            Stellar<span className="text-ember"> Foods.</span>
+          </span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-ink-soft">
           {nav.map((item) =>
