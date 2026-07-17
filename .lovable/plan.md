@@ -1,17 +1,29 @@
-## Problem
+## Goal
+Make the mobile hamburger menu fully keyboard accessible with proper focus management and focus trapping.
 
-On mobile, tapping the hamburger toggles the icon (Menu ↔ X) but no menu appears. The panel div renders as `fixed inset-x-0 top-16 bottom-0` inside `<header>`, and the header uses `backdrop-blur`. `backdrop-filter` promotes the header to a containing block for `position: fixed` descendants, so `bottom-0` becomes the header's bottom (~64px), collapsing the panel to ~1px tall. Verified via Playwright: computed rect is `{y:64, w:390, h:1}`.
+## Changes (all in `src/components/SiteHeader.tsx`)
 
-## Fix
+1. **Focus the panel on open**
+   - Add a ref to the mobile panel container and move focus to the first nav link (or the panel) when `open` becomes true.
+   - Save the previously focused element (the hamburger button) and restore focus to it when the panel closes.
 
-**`src/components/SiteHeader.tsx`**
+2. **Trap focus inside the panel while open**
+   - Add a `keydown` listener on the panel:
+     - `Tab` / `Shift+Tab` cycles between the first and last focusable elements (nav links + Shop CTA + Wholesale link + close button reference).
+     - `Escape` closes the menu and returns focus to the hamburger button.
+   - Query focusable elements dynamically so ordering stays correct.
 
-1. Move the mobile panel JSX out of the `<header>` element so it is no longer inside the `backdrop-blur` containing block. Return a fragment `<>...</>` with `<header>...</header>` and the panel as siblings.
-2. Replace `bottom-0` with an explicit viewport-height sizing that works regardless of containing block: `top-16 h-[calc(100dvh-4rem)]` (dvh handles mobile browser chrome correctly). Keep `fixed inset-x-0 z-40 bg-canvas border-t border-line overflow-y-auto`.
-3. Keep all existing behavior: `open` state, escape-on-route-change effect, body scroll lock, links, "Shop the range" / "Wholesale enquiry" CTAs.
+3. **Semantics / ARIA**
+   - Add `role="dialog"`, `aria-modal="true"`, `aria-label="Site navigation"` to the panel.
+   - Give the hamburger button `aria-controls="mobile-nav-panel"` and assign that `id` to the panel.
+   - Keep `aria-expanded` toggling (already present).
+
+4. **Visible focus styles**
+   - Ensure mobile nav links have a clear `focus-visible:outline` / ring so keyboard users can see focus (currently no focus style on the large links).
+
+## Out of scope
+Desktop nav, styling changes beyond focus rings, and any other pages/components.
 
 ## Verification
-
-- Reload `/` and `/about` at 390×844, tap the hamburger, confirm the full-height panel overlays the page with all nav links visible and tappable.
-- Tap a link and confirm it navigates and the panel closes (existing effect on pathname change).
-- Confirm no visual regressions on `md+` (panel remains `md:hidden`).
+- Tab through: hamburger → open → focus lands in panel → Tab cycles only inside panel → Shift+Tab wraps → Escape closes and returns focus to hamburger.
+- Screen reader announces the panel as a dialog labeled "Site navigation".
